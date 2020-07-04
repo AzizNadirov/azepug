@@ -1,0 +1,6 @@
+{% extends 'base.html'%}
+{% block title %} {{post.title}} {% endblock %}
+{% block content%}
+    <h1><i>{{post.title}}</i></h1>
+    <p class="text-lg-right"> <i>Müəllif:{{post.author}} Tarix:{{post.date_created}}</i></p>
+{% endblock %}
