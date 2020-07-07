@@ -8,15 +8,25 @@
 {% block title %} Məqalələr - azepug{% endblock %} 
                           <!-- Content -->
 {% block body %}
-<div class="blog-list">
-    <h2> Məqalələr</h2>
-    {% for post in posts%}
-       <h2> <a href="{{post.get_absolute_url}}"> {{post.title}}</a></h2>
-       <p class="date">
-            <i> Paylaşdı: {{post.user}} Tarix: {{post.date_created}} </i>
-       </p>
-       {{post.content|truncatewords:30|linebreaks}}
+<div class="container">
+    <div class="blog-list">
+        <div class="row">
+            <div class="col-md-12">
+                <h2> Məqalələr</h2>
+                <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
+                    Post əlavə et
+                </a>
+            </div>
+        </div>
+        {% for post in posts%}
+            <h3> <a href="{{post.get_absolute_url}}"> {{post.title}}</a></h3>
+            <p class="date">
+                <i> Paylaşdı: <strong>{{post.user}}</strong> Tarix:  {{post.date_created}} </i>
+            </p>
+            {{post.content|truncatewords:30|linebreaks}}
 
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
+{% include 'blog/pagination.html' with page=posts %}
 {% endblock %}

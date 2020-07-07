@@ -6,14 +6,14 @@ from django.urls import reverse
 
 class PublishedManager(m.Manager):
     def get_queryset(self):
-        return super(PublishedManager,self).get_queryset().filter(status = 'published')
+        return super(PublishedManager,self).get_queryset().filter(status = 'Published')
     
 
 class Category(m.Model):
     name_of_category = m.CharField('Kateqoriya', max_length= 30)
 
     def __str__(self):
-        return self.name
+        return self.name_of_category
     class Meta:
         verbose_name = "Kateqoriya"
         verbose_name_plural = "Kateqoriyalar"
@@ -24,11 +24,11 @@ class Category(m.Model):
 
 class Post(m.Model):
     category = m.ForeignKey(Category, null =True, on_delete=m.SET_NULL)
-    title = m.CharField("Başlıq", max_length=20, default='Enter a title')
+    title = m.CharField("Başlıq", max_length=20)
     content = m.TextField()
     author = m.ForeignKey(U, on_delete=m.CASCADE)
     date_created = m.DateTimeField(default= timezone.now)
-    slug = m.SlugField(max_length=250, unique_for_date=date_created)
+    slug = m.SlugField(max_length=250, unique_for_date='date_created')
     STATUS_CHOICES = (
         ('Draft', 'draft'),
         ('Published', 'published'))
@@ -36,7 +36,7 @@ class Post(m.Model):
     status = m.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
     def get_absolute_url(self):
-        return reverse('blog:post_detail',
+        return reverse('blog:about_post',
         args=[self.date_created.year, self.date_created.month, self.date_created.day, self.slug])
     
     #-------------- Managers --------------------------
