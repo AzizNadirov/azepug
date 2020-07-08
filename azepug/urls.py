@@ -1,6 +1,3 @@
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
-Examples:
-Function views
 from django.contrib import admin
 from django.urls import path, include
 

@@ -13,12 +13,13 @@
         <div class="container">
             <div class="row">
                 <nav class="col-md-12 navbar navbar-expand-lg navbar-dark bg-dark">
-                    <div class ="col-md-1 logo" > <img src="{% static 'home/img/azepug_logo.png'%}" href = ""></div>
+                    <div class ="col-md-1 logo" > <img src="{% static 'home/img/azepug_logo.png'%}" href = "{% url 'home:Home'%}"></div>
                     <div class="col-md-1 col-md-offset-1"> <a class="btn btn-outline-primary " href="/blogs">Məqalələr</a></div>
                     <div class="col-md-1"> <a class="btn btn-outline-primary " href="/admin">Ad1000</a></div>
                 </nav>
             </div>
             {%block body%}
+            
             {%endblock%}
         </div>
 </body>
