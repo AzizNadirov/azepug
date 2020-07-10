@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+from django.views.generic import ListView
+
 from.models import Post
 from .forms.add_post import PostForm
+
 #------------------- show post --------------------------------
 def blog_list(request):
     posts = Post.published.all().order_by('-date_created')
@@ -45,3 +48,8 @@ def update_post(requst, pk):
             return redirect('/')
     context = {'form':form}
     return render(request, 'blog/CU_form.html', context)
+class BlogList_v(ListView):
+    queryset = Post.published.all()
+    context_object_name = 'posts'
+    paginate_by = 9
+    template_name = 'blog/blog_list.html'
