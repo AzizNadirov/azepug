@@ -14,7 +14,7 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_created']
 
-class PostDetailView(CreateView):
+class PostDetailView(DetailView):
     template_name = 'blog/about_post.html'
     model = Post
     fields = "__all__"
