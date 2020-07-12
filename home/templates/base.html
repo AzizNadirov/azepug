@@ -18,6 +18,11 @@
                     <div class="col-md-1"> <a class="btn btn-outline-primary " href="/admin">Ad1000</a></div>
                 </nav>
             </div>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{message.tags}}"> {{message}}</div>
+                {% endfor %}
+            {% endif %}
             {%block body%}
             
             {%endblock%}

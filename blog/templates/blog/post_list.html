@@ -13,9 +13,12 @@
         <div class="row">
             <div class="col-md-12">
                 <h2> Məqalələr</h2>
-                <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
-                    Post əlavə et
-                </a>
+                <div class="align-content-md-end">
+                    <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
+                        Post əlavə et
+                    </a>
+                </div>
+               
             </div>
         </div>
         {% for post in posts%}
