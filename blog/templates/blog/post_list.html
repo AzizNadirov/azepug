@@ -19,7 +19,7 @@
             </div>
         </div>
         {% for post in posts%}
-            <h3> <a href="{{post.get_absolute_url}}"> {{post.title}}</a></h3>
+            <h3> <a href="{% url 'blog:about_post' post.id %}"> {{post.title}}</a></h3>
             <p class="date">
                 <i> Paylaşdı: <strong>{{post.user}}</strong> Tarix:  {{post.date_created}} </i>
             </p>
@@ -28,5 +28,5 @@
         {% endfor %}
     </div>
 </div>
-{% include 'blog/pagination.html' with page=posts %}
+{% include 'blog/pagination.html' with page=page_obj %}
 {% endblock %}
