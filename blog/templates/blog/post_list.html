@@ -24,7 +24,7 @@
         {% for post in posts%}
             <h3> <a href="{% url 'blog:about_post' post.id %}"> {{post.title}}</a></h3>
             <p class="date">
-                <i> Paylaşdı: <strong>{{post.user}}</strong> Tarix:  {{post.date_created}} </i>
+                <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
             </p>
             {{post.content|truncatewords:30|linebreaks}}
 
