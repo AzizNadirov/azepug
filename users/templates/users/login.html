@@ -1,25 +1,25 @@
 {% extends 'base.html'%}
 {% load static %}
-{% block title %} Register-AzePUG {% endblock %}
+{% block title %} Daxil ol-AzePUG {% endblock %}
 {% block body %}
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">
-                    Gəl sən də bizim tayfaya qoşul!
+                    Xoş gəldin
                 </legend>
                 {{form.as_p}}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type = 'submit'>
-                    Qeydiyyatdan kech!
+                    Daxil ol
                 </button>
             </div>
             <div class="border-top pt-3">
                 <small class="text-muted">
-                    Buralisiniz?
-                    <a href="{% url 'login'%}" class="ml-2"> Daxil ol</a>
+                    Buralı deyilsiz?
+                    <a href="/register" class="ml-2"> Qeydiyyatdan keçin</a>
                 </small>
             </div>
         </form>

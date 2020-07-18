@@ -1,10 +1,6 @@
-body div.container{
-    background-color: khaki;
-}
-#a_post{
-    text-align: center;
+body{
+    background-color: lightyellow;
 }
 div.card{
     margin-bottom: 10px;
-    text-align: center;
 }

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}
+    {{user.username}} - AzePUG
+{% endblock title %}
+
+{% block body %}
+    <div class='container'>
+        <h1> {{user.username}}</h1>
+        <a class = 'btn btn-dark' href="{% url 'logout' %}"> Hesabdan çıx</a>
+    </div>
+{% endblock body %}

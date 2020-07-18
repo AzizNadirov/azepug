@@ -23,14 +23,12 @@
         </div>
 
         {% for post in posts%}
-        <div id = "a_post" class = "row">
-            <div class = "card"
-                <h3> <a href="{% url 'blog:about_post' post.id %}"> {{post.title}}</a></h3>
-                <div class = "card-subtitle">
-                    <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
-                </div>
-                {{post.content|truncatewords:30|linebreaks}}
+        <div class = "card">
+            <a href="{% url 'blog:about_post' post.id %}"> <h3> {{post.title}}</h3></a>
+            <div class = "card-subtitle">
+                <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
             </div>
+            <p>{{post.content|truncatewords:30|linebreaks}}</p>
         </div>
 
         {% endfor %}
