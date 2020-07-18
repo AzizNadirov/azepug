@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h2> Məqalələr</h2>
-                <div class="align-content-md-end">
+                <div>
                     <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
                         Post əlavə et
                     </a>
@@ -21,12 +21,17 @@
                
             </div>
         </div>
+
         {% for post in posts%}
-            <h3> <a href="{% url 'blog:about_post' post.id %}"> {{post.title}}</a></h3>
-            <p class="date">
-                <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
-            </p>
-            {{post.content|truncatewords:30|linebreaks}}
+        <div id = "a_post" class = "row">
+            <div class = "card"
+                <h3> <a href="{% url 'blog:about_post' post.id %}"> {{post.title}}</a></h3>
+                <div class = "card-subtitle">
+                    <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
+                </div>
+                {{post.content|truncatewords:30|linebreaks}}
+            </div>
+        </div>
 
         {% endfor %}
     </div>

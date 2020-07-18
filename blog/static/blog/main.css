@@ -1,3 +1,10 @@
 body div.container{
     background-color: khaki;
 }
+#a_post{
+    text-align: center;
+}
+div.card{
+    margin-bottom: 10px;
+    text-align: center;
+}
