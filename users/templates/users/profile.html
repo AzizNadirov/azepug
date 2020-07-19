@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}
-    {{user.username}} - AzePUG
+    {{user.username}} - AzePUG 
 {% endblock title %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'users/user.css' %}">
+{% endblock %}
+
+
 {% block body %}
-    <div class='container'>
-        <h1> {{user.username}}</h1>
-        <a class = 'btn btn-dark' href="{% url 'logout' %}"> Hesabdan çıx</a>
+    <div class="content-section">
+        <div class="media">
+            <img src="{{user.profile.image.url}}" alt="Profil" class="rounded-circle account-img avatar">
+            <div class="media-body">
+                <h2 class="account-heading">
+                    {{user.username}}
+                </h2>
+                <p class="text-srcondary">
+                    {{user.email}}
+                </p>
+            </div>
+        </div>
     </div>
 {% endblock body %}
