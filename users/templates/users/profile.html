@@ -7,20 +7,27 @@
 {% block head %}
     <link rel="stylesheet" href="{% static 'users/user.css' %}">
 {% endblock %}
-
-
 {% block body %}
-    <div class="content-section">
-        <div class="media">
-            <img src="{{user.profile.image.url}}" alt="Profil" class="rounded-circle account-img avatar">
-            <div class="media-body">
-                <h2 class="account-heading">
-                    {{user.username}}
-                </h2>
-                <p class="text-srcondary">
-                    {{user.email}}
-                </p>
+<div class="container">
+    <div class="row">
+        <div class="content-section">
+            <div class="media">
+                <img src="{{user.profile.image.url}}"  class="rounded-circle account-img avatar">
+                <div class="media-body">
+                    <h2 class="account-heading">
+                        {{user.username}}
+                    </h2>
+                    <p class="text-secondary">
+                        {{user.email}}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <a href="{% url 'logout' %}" class="btn btn-sm btn-danger" style="display: block;"> Hesabdan çıx</a>
+        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-danger"> Redaktə et</a>
+    </div>
+</div>
 {% endblock body %}

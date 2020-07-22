@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Edit profile - {{user.username}} {% endblock %}
+
+
+
+{% block body %}
+<ul>
+    <li><img class = "rounded-circle account-img" src="{{user.profile.image.url}}" alt="user avatar"></li>
+    <li><h3>{{user.username}}</h3></li>
+    <li><h3>{{user.email}}</h3></li>
+</ul>
+<hr>
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                Redaktə et
+            </legend>
+            {{u_form.as_p}}
+            {{p_form.as_p}}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">
+                Təsdiqlə
+            </button>
+        </div>
+        </div>
+    </form>
+
+
+</div>
+
+{% endblock %}
