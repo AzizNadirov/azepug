@@ -35,13 +35,16 @@ class Post(m.Model):
 
     status = m.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
 
-    # def get_absolute_url(self):
-    #     return reverse('blog:about_post',
-    #     args=[self.date_created.year, self.date_created.month, self.date_created.day, self.slug])
-    #
+    def get_absolute_url(self):
+        return reverse('blog:about_post', kwargs = {'pk': self.pk})
+        
     #-------------- Managers --------------------------
     objects = m.Manager()
     published = PublishedManager()
+    """
+        published - Query set manager where all objects is 'posts with published status. 
+        at: class PublishedManager'
+    """
 
     def __str__(self):
         return self.title

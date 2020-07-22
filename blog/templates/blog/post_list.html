@@ -13,11 +13,13 @@
         <div class="row">
             <div class="col-md-12">
                 <h2> Məqalələr</h2>
-                <div>
-                    <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
-                        Post əlavə et
-                    </a>
-                </div>
+                {% if user.is_authenticated %}
+                    <div>
+                        <a class = "btn btn-secondary" href="{% url 'blog:create_post' %}">
+                            Post əlavə et
+                        </a>
+                    </div>
+                {% endif %}
                
             </div>
         </div>

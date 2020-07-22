@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-from django.views.generic import ListView,CreateView,DetailView,DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import ListView,CreateView,DetailView,DeleteView, UpdateView
 
 from.models import Post
 
@@ -19,6 +20,40 @@ class PostDetailView(DetailView):
     model = Post
     fields = "__all__"
 
-class PostCreateView(CreateView):
+
+
+class PostCreateView(LoginRequiredMixin,CreateView):
     model=Post
-    fields = ['title', 'category', 'content', 'slug']
+    fields = ['title', 'category', 'content']
+    template_name = 'blog/CRUD_post/create_post.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
+    model=Post
+    fields = ['title', 'category', 'content']
+    template_name = 'blog/CRUD_post/create_post.html'
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        else: return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin ,DeleteView):
+    model = Post
+    template_name = 'blog/CRUD_post/delete_post.html'
+    success_url = '/blogs'
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        else: return False
