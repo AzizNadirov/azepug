@@ -10,20 +10,21 @@
         <title>{% block title %} {% endblock %}</title>
     </head>
     <body> 
-            <div class="row">
-                <nav class="col-md-12 navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a href = "/">
-                        <img src = "{% static 'home/img/azepug_logo.png'%}">
-                    </a>
-                    <div class="col-md-1 col-md-offset-1"> <a class="btn btn-outline-primary " href="/blogs">Məqalələr</a></div>
-                    <div class="col-md-1"> <a class="btn btn-outline-primary " href="/admin">Ad1000</a></div>
-                    {% if user.is_authenticated %}
-                        <div class="col-md-1"> <a class="btn btn-outline-primary " href="{% url 'profile'%}">Hesabım </a></div>
-                    {% else %}
-                        <div class="col-md-1"> <a class="btn btn-outline-primary " href="{% url 'login'%}">Daxil ol</a></div>
-                    {% endif %}
-                </nav>
-            </div>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/"> <img src = "{% static 'home/img/azepug_logo.png'%}"> </a> </li>
+
+            <li class="nav-item"> <a class="nav-link" href="/blogs">Məqalələr</a></li>
+            <li class="nav-item"> <a class="nav-link" href="/vacancies">Vakansiyalar</a></li>
+
+            <li class="nav-item"> <a class="nav-link" href="/admin">Ad1000</a></li>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item"> <a class="nav-link"  href="{% url 'profile'%}">Hesabım </a></li>
+            {% else %}
+                <li class="nav-item"> <a class="nav-link" href="{% url 'login'%}">Daxil ol</a></li>
+            {% endif %}
+        </ul>
             {% if messages %}
                 {% for message in messages %}
                     <div class="alert alert-{{message.tags}}"> {{message}}</div>

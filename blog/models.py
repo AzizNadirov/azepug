@@ -7,6 +7,9 @@ from django.urls import reverse
 class PublishedManager(m.Manager):
     def get_queryset(self):
         return super(PublishedManager,self).get_queryset().filter(status = 'Published')
+
+class Tags(m.Model):
+    tag = m.CharField('tag',max_length=20)
     
 
 class Category(m.Model):
@@ -28,7 +31,6 @@ class Post(m.Model):
     content = m.TextField()
     author = m.ForeignKey(U, on_delete=m.CASCADE)
     date_created = m.DateTimeField(default= timezone.now)
-    slug = m.SlugField(max_length=250, unique_for_date='date_created')
     STATUS_CHOICES = (
         ('Draft', 'draft'),
         ('Published', 'published'))
@@ -44,6 +46,7 @@ class Post(m.Model):
     """
         published - Query set manager where all objects is 'posts with published status. 
         at: class PublishedManager'
+
     """
 
     def __str__(self):
@@ -51,3 +54,22 @@ class Post(m.Model):
     
     class Meta:
         verbose_name, verbose_name_plural = "Post", "Postlar"
+
+
+
+class Comment_1(m.Model):  # for unauthentificated users - name,email and comment
+    name_author = m.TextField('Ad', max_length = 20)
+    post = m.ForeignKey(Post, related_name = 'comments', on_delete = m.CASCADE)
+    email = m.EmailField('Elektron poçt')
+    body = m.TextField('Şərh')
+    created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
+    updated = m.DateTimeField('Yenilənmə tariix', auto_now = True)
+    active = m.BooleanField('Aktiv', default = True)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+         return f'Comment to "{self.post}" by {self.author} on: {self.created}'
+        
+

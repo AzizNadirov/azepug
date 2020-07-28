@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} Vakansiyalar - AzePUG{% endblock %}
+{% block head%} {% endblock %}
+{% block body %}
+    <div class = "container">
+        <h2>
+            Vakansiyalar
+        </h2>
+        <div class="mb-4">
+            <a class = "btn btn-secondary" href="{% url 'vacancy:create_vacancy' %}">
+                Vakansiya əlavə et
+            </a>
+        </div>
+        {% for v in vacancies %}
+            <div class = "card mb-10">
+                <div class="card card-title">
+                    <a class="card-link" href="{% url 'vacancy:about_vacancy' v.id %}">
+                      <h3> {{v.title}} </h3>
+                    </a>
+                </div>
+                <div class="car-body">
+                    {{v.content|truncatewords:30|linebreaks}}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

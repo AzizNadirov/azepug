@@ -1,33 +1,22 @@
 from django.db import models as m
+from django.contrib.auth.models import User
+from django.urls import reverse
 
-class Ability(m.Model):
-    ability = m.CharField('Bacarıq', max_length=25, null=False, default='Python')
-
-    class Meta:
-        verbose_name = 'Bacarıq'
-        verbose_name_plural = 'Bacarıqlar'
-class Requirments(m.Model):
-    high_edu = m.BooleanField('Ali təhsil', default=True)
-    experience = m.PositiveSmallIntegerField('Minimum iş təcrübəsi', null=True)
 
 class Vacancy(m.Model):
-    title = m.TextField(max_length=50)
-    abilities = m.ManyToManyRel(Ability)
-    requirments = m.ManyToManyRel(Requirments)
-    STATUS_CHOİCES = (
-        ('AZN, manat'),
-        ('USD', 'ABŞ_dolları'),
-        ('RB', 'Rusiya_rublu'),
-        ('Başqa', 'başqa')
-    )
-    celery = m.FloatField("Maaş")
-    currancy_of_celery = m.CharField('Valyuta', choices=STATUS_CHOİCES, max_length=20)
-    date_published = m.DateField(auto_now=True)
-    dead_line = m.DateField(auto_now=True)
+    author = m.ForeignKey(User, on_delete=m.CASCADE)
+    title = m.CharField('Bashliq', max_length = 50)
+    content = m.TextField('Vakansiya')
+    dead_line = m.DateField("Bitmə tarixi (YYYY-MM-DD)", null=True)
+    date_created = m.DateField("Yaradılma tarixi", auto_now_add=True)
+    freelance = m.BooleanField("Freelance imkanı")
+
+
+    def get_absolute_url(self):
+        return reverse('vacancy:about_vacancy', kwargs = {'pk': self.pk})
 
     class Meta:
         verbose_name = 'Vakansiya'
         verbose_name_plural = 'Vakansiyalar'
-    
     def __str__(self):
-        return f'{self.title}\t{self.dead_line}'
+        return f'{self.title} - {self.author}'

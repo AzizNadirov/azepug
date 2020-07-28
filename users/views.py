@@ -19,7 +19,6 @@ def register(request):
 @login_required
 def edit_profile_view(request):
     if request.method == 'POST':
-        print("in first if---------------------------")
         u_form = UserUpdateForm(request.POST, request.FILES,  instance = request.user)
         p_form = ProfileUpdateForm(instance = request.user.profile)
         print(u_form.is_valid() and p_form.is_valid())
@@ -27,7 +26,6 @@ def edit_profile_view(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            print("*" * 20)
             messages.success(request, f'Dəyişiklik uğurla tamamlandı.')
             return redirect('profile')
 

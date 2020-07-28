@@ -2,17 +2,17 @@
 {% block title %} {{object.title}} {% endblock %}
 {% block body%}
 <div class="container">
-    <h2><i>{{object.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="#">{{object.author}}</a> Tarix:{{object.date_created}}</i></p>
+    <h2><i>{{post.title}}</i></h2>
+    <p class="text-lg-right"> <i>Müəllif: <a href="#">{{post.author}}</a> Tarix:{{post.date_created}}</i></p>
     <div class="text-sm-center">
-        {{object.content}}
+        {{post.content}}
         <br>
-        {% if request.user == object.author %}
-            <a class = "btn btn-secondary" href="{% url 'blog:update_post' object.id %}" >
+        {% if request.user == post.author %}
+            <a class = "btn btn-secondary" href="{% url 'blog:update_post' post.id %}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'blog:delete_post' object.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'blog:delete_post' post.id %}" >
                 Sil
             </a>
         {% endif %}
