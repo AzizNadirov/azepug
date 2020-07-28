@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (VacancyListView, VacancyCreateView,
-                    VacancyDeleteView,VacancyDetailView,VacancyUpdateView
+                    VacancyDeleteView,VacancyUpdateView, vacancy_detail
 )
 app_name = 'vacancy'
 
@@ -8,7 +8,7 @@ urlpatterns = [
     path('', VacancyListView.as_view(), name='vacancy_list'),
 
     path('vacancy/<int:pk>/',
-    VacancyDetailView.as_view(), name='about_vacancy'),
+    vacancy_detail, name='about_vacancy'),
 
     path('new/', VacancyCreateView.as_view(), name='create_vacancy'),
 

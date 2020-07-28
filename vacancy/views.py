@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, CreateView ,DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from .models import Vacancy
+from .forms import Comment_1Form
+
 
 class VacancyListView(ListView):
     model = Vacancy
@@ -10,11 +12,21 @@ class VacancyListView(ListView):
     context_object_name = 'vacancies'
     ordering = ['-date_created']
 
-class VacancyDetailView(DetailView):
-    template_name = 'vacancy/about_vacancy.html'
-    model = Vacancy
-    fields = ['title', 'content', 'dead_line', 'freelance', "date_created"]
-    ordering = ["-date_created"]
+def vacancy_detail(request, pk):
+    vacancy = get_object_or_404(Vacancy, id = pk)
+    comments = vacancy.comments.filter(active = True)
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = Comment_1Form(data = request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit = False)
+            new_comment.vacancy = vacancy
+            new_comment.save()
+    else:
+        comment_form = Comment_1Form()
+
+    return render(request, 'vacancy/about_vacancy.html', {'vacancy':vacancy,
+     'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form})
 
 
 

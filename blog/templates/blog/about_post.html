@@ -1,5 +1,5 @@
 {% extends 'blog/post_list.html'%}
-{% block title %} {{object.title}} {% endblock %}
+{% block title %} {{post.title}} - AzePUG {% endblock %}
 {% block body%}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
@@ -17,5 +17,34 @@
             </a>
         {% endif %}
     </div>
+        {% with comments.count as total_comments %}
+        <h3>
+            Cəmi {{total_comments}} şərh
+        </h3>
+    {% endwith %}
+    {% for comment in comments %}
+        <div class="card">
+            <p class="info">
+                Şərh  {{forloop.counter}} < - {{comment.name_author}}
+                {{comment.created}}
+            </p>
+            {{comment.body|linebreaks}}
+        </div>
+    {% empty %}
+        <p>İlk şərhçi siz olun! </p>
+    {% endfor %}
+
+{% if new_comment %}
+    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
+{% else %}
+    <h2>Yeni şərh əlavə et</h2>
+    <form method="POST"> 
+    {{comment_form.as_p}}
+    {% csrf_token %}
+    <p>
+        <input class="btn btn-success" type="submit" value="Əlavə et">
+    </p>
+    </form>
+{% endif %}
 </div>
 {% endblock %}

@@ -20,3 +20,13 @@ class Vacancy(m.Model):
         verbose_name_plural = 'Vakansiyalar'
     def __str__(self):
         return f'{self.title} - {self.author}'
+    
+
+class Comment_1(m.Model):  # for unauthentificated users - name,email and comment
+    name_author = m.TextField('Ad', max_length = 20)
+    vacancy = m.ForeignKey(Vacancy, related_name = 'comments', on_delete = m.CASCADE)
+    email = m.EmailField('Elektron poçt')
+    body = m.TextField('Şərh')
+    created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
+    updated = m.DateTimeField('Yenilənmə tariix', auto_now = True)
+    active = m.BooleanField('Aktiv', default = True)

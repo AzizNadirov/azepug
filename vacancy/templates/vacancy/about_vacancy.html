@@ -1,30 +1,60 @@
 {% extends 'base.html'%}
-{% block title %} {{object.title}} {% endblock %}
+{% block title %} {{vacancy.title}} {% endblock %}
 {% block body%}
 <div class="container">
-    <h2><i>{{object.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="#">{{object.author}}</a> Tarix:{{object.date_created}}</i></p>
+    <h2><i>{{vacancy.title}}</i></h2>
+    <p class="text-lg-right"> <i>Müəllif: <a href="#">{{vacancy.author}}</a> Tarix:{{vacancy.date_created}}</i></p>
     <div class="text-sm-center">
-        {{object.content}}
+        {{vacancy.content}}
         <br>
         <ul>
-            <li>Bitmə tarixi: {{object.dead_line}}</li>
-            {% if object.freelance %}
+            <li>Bitmə tarixi: {{vacancy.dead_line}}</li>
+            {% if vacancy.freelance %}
                 <li>Freelance: Hə</li>
             {% else %}
                 <li>Freelance: Yox</li>
             {% endif %}
         </ul>
         <br>
-        {% if request.user == object.author %}
-            <a class = "btn btn-secondary" href="{% url 'vacancy:update_vacancy' object.id %}" >
+        {% if request.user == vacancy.author %}
+            <a class = "btn btn-secondary" href="{% url 'vacancy:update_vacancy' vacancy.id %}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'vacancy:delete_vacancy' object.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'vacancy:delete_vacancy' vacancy.id %}" >
                 Sil
             </a>
         {% endif %}
     </div>
+    {% with comments.count as total_comments %}
+        <h3>
+            Cəmi {{total_comments}} şərh
+        </h3>
+    {% endwith %}
+    {% for comment in comments %}
+        <div class="card">
+            <p class="info">
+                Comment {{forloop.counter}} by {{comment.name_author}}
+                {{comment.created}}
+            </p>
+            {{comment.body|linebreaks}}
+        </div>
+    {% empty %}
+        <p>İlk şərhçi siz olun! </p>
+    {% endfor %}
+
+{% if new_comment %}
+    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
+{% else %}
+    <h4>Yeni şərh əlavə et</h4>
+    <form method="POST"> 
+    {{comment_form.as_p}}
+    {% csrf_token %}
+    <p>
+        <input type="submit" value="Əlavə et">
+    </p>
+    </form>
+{% endif %}
+
 </div>
 {% endblock %}
