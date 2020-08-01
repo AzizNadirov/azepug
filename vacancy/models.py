@@ -1,7 +1,6 @@
 from django.db import models as m
 from django.contrib.auth.models import User
 from django.urls import reverse
-from blog.models import CommentBase
 
 
 class Vacancy(m.Model):
@@ -21,11 +20,3 @@ class Vacancy(m.Model):
         verbose_name_plural = 'Vakansiyalar'
     def __str__(self):
         return f'{self.title} - {self.author}'
-
-
-class Comment(CommentBase):
-    vacancy = m.ForeignKey(Vacancy, related_name='vk_comments', on_delete=m.CASCADE)
-
-    def __str__(self):
-        return f'Comment to "{self.vacancy}" by {self.author} on: {self.created}'
-
