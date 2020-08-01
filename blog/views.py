@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 # from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView,CreateView,DetailView,DeleteView, UpdateView
+from django.views.generic import ListView,CreateView, DeleteView, UpdateView
 
-from.models import Post, Comment_1
-from .forms import Comment_1Form
+from.models import Post
+from .forms import GuestCommentForm, UserCommentForm
 
 #------------------- show post -------------
 
@@ -19,17 +19,23 @@ class PostListView(ListView):
 
 
 def post_detail(request, pk):
+    # check user and select kind of comment form
+    if request.user.is_authenticated:
+        CommentForm = UserCommentForm
+    else:
+        CommentForm = GuestCommentForm
+
     post = get_object_or_404(Post, id = pk)
     comments = post.comments.filter(active = True)
     new_comment = None
     if request.method == 'POST':
-        comment_form = Comment_1Form(data = request.POST)
+        comment_form = CommentForm(data = request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit = False)
             new_comment.post = post
             new_comment.save()
     else:
-        comment_form = Comment_1Form()
+        comment_form = CommentForm()
 
     return render(request, 'blog/about_post.html', {'post':post,
      'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form})

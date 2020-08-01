@@ -1,7 +1,12 @@
-from django import forms
-from .models import Comment_1
+from blog.forms import GuestCommentForm as GForm
+from blog.forms import UserCommentForm as UForm
+from .models import Comment
 
-class Comment_1Form(forms.ModelForm):
+class UserCommentForm(UForm):
     class Meta:
-        model = Comment_1
-        fields = ['name_author', 'email', 'body']
+        model = Comment
+
+class GuestCommentForm(GForm):
+    class Meta:
+        model = Comment
+

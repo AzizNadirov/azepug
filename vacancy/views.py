@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from .models import Vacancy
-from .forms import Comment_1Form
+from blog.forms import GuestCommentForm, UserCommentForm
 
 
 class VacancyListView(ListView):
@@ -13,17 +13,22 @@ class VacancyListView(ListView):
     ordering = ['-date_created']
 
 def vacancy_detail(request, pk):
+    # check user and select kind of comment form
+    if request.user.is_authenticated:
+        CommentForm = UserCommentForm
+    else:
+        CommentForm = GuestCommentForm
     vacancy = get_object_or_404(Vacancy, id = pk)
     comments = vacancy.comments.filter(active = True)
     new_comment = None
     if request.method == 'POST':
-        comment_form = Comment_1Form(data = request.POST)
+        comment_form = CommentForm(data = request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit = False)
             new_comment.vacancy = vacancy
             new_comment.save()
     else:
-        comment_form = Comment_1Form()
+        comment_form = CommentForm()
 
     return render(request, 'vacancy/about_vacancy.html', {'vacancy':vacancy,
      'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form})

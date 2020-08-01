@@ -1,5 +1,5 @@
 from django.db import models as m
-from django.contrib.auth.models import User as U
+from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
 
@@ -29,7 +29,7 @@ class Post(m.Model):
     category = m.ForeignKey(Category, null =True, on_delete=m.SET_NULL)
     title = m.CharField("Başlıq", max_length=20)
     content = m.TextField()
-    author = m.ForeignKey(U, on_delete=m.CASCADE)
+    author = m.ForeignKey(User, on_delete=m.CASCADE)
     date_created = m.DateTimeField(default= timezone.now)
     STATUS_CHOICES = (
         ('Draft', 'draft'),
@@ -56,10 +56,9 @@ class Post(m.Model):
         verbose_name, verbose_name_plural = "Post", "Postlar"
 
 
-
-class Comment_1(m.Model):  # for unauthentificated users - name,email and comment
-    name_author = m.TextField('Ad', max_length = 20)
-    post = m.ForeignKey(Post, related_name = 'comments', on_delete = m.CASCADE)
+# this comment model uses in blog, vacancy.. to_item -> post for blog, vacancy for vacancy app
+class CommentBase(m.Model):
+    author = m.ForeignKey(User,verbose_name='müəllif', related_name = 'comments', null = True, on_delete=m.SET_NULL)
     email = m.EmailField('Elektron poçt')
     body = m.TextField('Şərh')
     created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
@@ -70,6 +69,10 @@ class Comment_1(m.Model):  # for unauthentificated users - name,email and commen
         ordering = ('-created',)
 
     def __str__(self):
-         return f'Comment to "{self.post}" by {self.author} on: {self.created}'
-        
+         return f'Comment to -- " by {self.author} on: {self.created}'
+
+
+class Comment(CommentBase):
+    post = m.ForeignKey(Post, related_name = 'blg_comments', on_delete = m.CASCADE)
+
 

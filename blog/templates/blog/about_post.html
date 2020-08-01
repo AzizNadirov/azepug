@@ -18,9 +18,9 @@
         {% endif %}
     </div>
         {% with comments.count as total_comments %}
-        <h3>
+        <h4>
             Cəmi {{total_comments}} şərh
-        </h3>
+        </h4>
     {% endwith %}
     {% for comment in comments %}
         <div class="card">
@@ -31,15 +31,21 @@
             {{comment.body|linebreaks}}
         </div>
     {% empty %}
-        <p>İlk şərhçi siz olun! </p>
+        <h4>İlk şərhçi siz olun! </h4>
     {% endfor %}
 
 {% if new_comment %}
     <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
 {% else %}
-    <h2>Yeni şərh əlavə et</h2>
-    <form method="POST"> 
+    <h3>Yeni şərh əlavə et</h3>
+    <form method="POST">
+{% if user.is_authenticated %}
+<!--        decorate here, for loginned user comment -->
     {{comment_form.as_p}}
+{% else %}
+<!--        it is for non auth user-->
+    {{comment_form.as_p}}
+{% endif %}
     {% csrf_token %}
     <p>
         <input class="btn btn-success" type="submit" value="Əlavə et">

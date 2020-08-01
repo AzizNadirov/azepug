@@ -1,7 +1,12 @@
 from django import forms
-from .models import Comment_1
+from .models import Comment
 
-class Comment_1Form(forms.ModelForm):
+class UserCommentForm(forms.ModelForm):
     class Meta:
-        model = Comment_1
-        fields = ['name_author', 'email', 'body']
+        model = Comment
+        fields = ['body']
+
+class GuestCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['email', 'body']
