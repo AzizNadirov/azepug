@@ -57,8 +57,10 @@ class Post(m.Model):
 
 
 # this comment model uses in blog, vacancy.. to_item -> post for blog, vacancy for vacancy app
-class CommentBase(m.Model):
+class Comment(m.Model):
     author = m.ForeignKey(User,verbose_name='müəllif', related_name = 'comments', null = True, on_delete=m.SET_NULL)
+    post = m.ForeignKey(Post, related_name = 'comments', on_delete = m.CASCADE)
+    vacancy = m.ForeignKey('vacancy.Vacancy', related_name='comments', on_delete=m.CASCADE)
     email = m.EmailField('Elektron poçt')
     body = m.TextField('Şərh')
     created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
@@ -70,9 +72,3 @@ class CommentBase(m.Model):
 
     def __str__(self):
          return f'Comment to -- " by {self.author} on: {self.created}'
-
-
-class Comment(CommentBase):
-    post = m.ForeignKey(Post, related_name = 'blg_comments', on_delete = m.CASCADE)
-
-
