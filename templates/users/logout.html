@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class = "container">
+        <h4>Hesabınızdan uğurla çıxdınız. Görüşənədək!</h4>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-3">
+                <a class = "btn btn-success" href = "{% url 'login' %}">Daxil ol</a>
+            </div>
+
+            <div class="col-md-3 col-md-offset-3">
+                <a class = "btn btn-success" href = "{% url 'users:register' %}">Qeydiyyatdan keç</a>
+            </div>
+
+        </div>
+
+
+{% endblock %}

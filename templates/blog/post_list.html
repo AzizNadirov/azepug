@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+                       <!-- Head Block -->
+{% block head %} 
+<link rel="stylesheet" href="{% static 'blog/main.css'%}">
+{% endblock %}
+                           <!-- Title -->
+{% block title %} Məqalələr - azepug{% endblock %} 
+                          <!-- Content -->
+{% block body %}
+<div class="container">
+    <div class="blog-list">
+        <div class="row">
+            <div class="col-md-12">
+                <h2> Məqalələr</h2>
+                {% if user.is_authenticated %}
+                    <div>
+                        <a class = "btn btn-secondary" href="{% url 'create_post' %}">
+                            Post əlavə et
+                        </a>
+                    </div>
+                {% endif %}
+               
+            </div>
+        </div>
+
+        {% for post in posts%}
+        <div class = "card">
+            <a href="{{post.get_absolute_url}}"> <h3> {{post.title}}</h3></a>
+            <div class = "card-subtitle">
+                <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
+            </div>
+            <p>{{post.content|truncatewords:30|linebreaks}}</p>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% include 'blog/pagination.html' with page=page_obj %}
+{% endblock %}

@@ -1,0 +1,10 @@
+img.avatar{
+    display: block;
+    width: 100px;
+    height: 80px;
+}
+div.card{
+    display: block;
+    width: 80rem;
+    text-align: right ;
+}
