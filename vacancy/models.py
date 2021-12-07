@@ -52,4 +52,4 @@ class Comment(m.Model):
         ordering = ('-created',)
 
     def __str__(self):
-        return f'Comment to -- " by {self.author} on: {self.created}'
+        return f'Comment to {self.vacancy} " by {self.author} on: {self.created}'

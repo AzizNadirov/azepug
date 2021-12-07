@@ -3,26 +3,21 @@
 {% load crispy_forms_tags %}
 {% block body%}
 <div class="container">
-    <h2><i>{{event.title}}</i></h2>
+    <h2><i>{{question.title}}</i></h2>
     <p class="text-lg-right">
         <i>Müəllif: 
-            <a href="{% url 'user' event.author.username %}">{{event.author}}</a> 
-            Tarix:{{event.date_created}}
+            <a href="{% url 'user' question.author.username %}">{{question.author}}</a> 
+            Tarix:{{question.date_created}}
         </i>
     </p>
     <div class="text-sm-center">
-        {{event.desc}}
+        {{question.body}}
         <br>
-        <ul>
-            <li>Başlama tarixi: {{event.starts_at}}</li>
-            <li>Bitmə tarixi: {{event.ends_at}}</li>
-        </ul>
-        <br>
-        {% if request.user == event.author %}
-            <a class = "btn btn-secondary" href="{% url 'update_event' event.id %}" >
+        {% if request.user == question.author %}
+            <a class = "btn btn-secondary" href="{% url 'question_update' event.id %}" >
                 Redaktə et
             </a>
-            <a class = "btn btn-secondary" href="{% url 'delete_event' event.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'question_deletet' question.id %}" >
                 Sil
             </a>
         {% endif %}

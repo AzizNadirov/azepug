@@ -17,6 +17,7 @@
             <li class="nav-item"> <a class="nav-link" href="{% url 'post_list' %}">Məqalələr</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'vacancy_list' %}">Vakansiyalar</a></li>
             <li class="nav-item"> <a class="nav-link" href="{% url 'event_list' %}">Tədbirlər</a></li>
+            <li class="nav-item"> <a class="nav-link" href="{% url 'question_list' %}">Forum</a></li>
 {% if user.is_superuser %}
             <li class="nav-item"> <a class="nav-link" href="/admin">Ad1000</a></li>
 {% endif %}

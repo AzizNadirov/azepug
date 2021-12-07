@@ -20,6 +20,7 @@ urlpatterns = [
     path('edit/', users_views.edit_profile_view, name = 'edit_profile'),
     path('vacancies/', include('vacancy.urls'), name = 'vacancy'),
     path('events/', include('events.urls'), name = "event_list"),
+    path('forum/', include('forum.urls')),
 ]
 
 if settings.DEBUG:

@@ -26,7 +26,7 @@ class Event(models.Model):
 class Comment(models.Model):
     author = models.ForeignKey(User,verbose_name='müəllif', related_name = 'e_comments', 
         null = True, on_delete=models.SET_NULL)
-    event = models.ForeignKey(Event, related_name = 'e_comments', on_delete = models.CASCADE)
+    event = models.ForeignKey(Event, related_name = 'comments', on_delete = models.CASCADE)
     body = models.TextField('Şərh', max_length = 1024)
     created = models.DateTimeField('Yaradılma tarixi',auto_now_add = True)
     updated = models.DateTimeField('Yenilənmə tariix', auto_now = True)
