@@ -9,7 +9,7 @@ from .forms import QuestionCreateForm,  AnswerCreateForm, CommentForm
 class QuestionCreateView(CreateView):
     form_class = QuestionCreateForm
     template_name = 'forum/question/create.html'
-    
+
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -55,10 +55,8 @@ class QuestionDetailView(View):
             new_comment.question = question
             new_comment.author = request.user
             new_comment.save()
-            comment_form = CommentForm()
-        else:
-            comment_form = CommentForm()
-
+        
+        comment_form = CommentForm()
         context = {'question':question,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         return render(request, 'forum/question/about.html', context)
     

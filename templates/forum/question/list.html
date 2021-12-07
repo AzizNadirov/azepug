@@ -14,7 +14,7 @@
         {% for q in questions %}
             <div class = "card mb-10">
                 <div class="card card-title">
-                    <a class="card-link" href="{{q.get_absolute_url}}">
+                    <a class="card-link" href="{% url 'question_detail' q.id %}">
                       <h3> {{q.title}} </h3>
                     </a>
                 </div>
