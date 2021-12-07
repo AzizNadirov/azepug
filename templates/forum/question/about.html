@@ -14,10 +14,10 @@
         {{question.body}}
         <br>
         {% if request.user == question.author %}
-            <a class = "btn btn-secondary" href="{% url 'question_update' event.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'question_update' question.id %}" >
                 Redaktə et
             </a>
-            <a class = "btn btn-secondary" href="{% url 'question_deletet' question.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'question_delete' question.id %}" >
                 Sil
             </a>
         {% endif %}
@@ -45,7 +45,7 @@
 
 {% if user.is_authenticated %}
     <form action=" " method="post" enctype="multipart/form-data">
-    {{comment_form|crispy}}
+    <!-- answer form -->
     {% csrf_token %}
         <p>
             <input class="btn btn-success" type="submit" value="Əlavə et">

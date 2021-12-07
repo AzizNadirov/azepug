@@ -47,26 +47,12 @@ class AnswerListView(ListView):
 class QuestionDetailView(View):
     def post(self, request, pk):
         question = get_object_or_404(Question, id = pk)
-        comments = question.comments.filter(active = True)
-        new_comment = None
-        comment_form = CommentForm(data = request.POST, files=request.FILES)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit = False)
-            new_comment.question = question
-            new_comment.author = request.user
-            new_comment.save()
-        
-        comment_form = CommentForm()
-        context = {'question':question,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'question':question}
         return render(request, 'forum/question/about.html', context)
     
-
     def get(self, request, pk):
         question = get_object_or_404(Question, id = pk)
-        comments = question.comments.filter(active = True)
-        new_comment = None
-        comment_form = CommentForm()
-        context = {'question':question,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'question':question}
         return render(request, 'forum/question/about.html', context)
 
 
