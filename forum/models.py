@@ -52,4 +52,4 @@ class Answer(models.Model):
         return f"Answer {self.author} to {self.question.title}"
 
     def get_absolute_url(self):
-        return reverse('detail_answer', kwargs = {'pk': self.pk})
+        return reverse('answer_detail', kwargs = {'pk': self.pk})

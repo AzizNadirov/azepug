@@ -36,12 +36,13 @@ class QuestionListView(ListView):
     ordering = ['-date_created']
 
 
-class AnswerListView(ListView):
-    model = Answer
-    template_name = 'forum/answer/list.html'
-    paginate_by = 4
-    context_object_name = 'answers'
-    ordering = ['-date_created']
+# class AnswerListView(ListView):
+#     model = Answer
+#     template_name = 'forum/answer/list.html'
+#     # get_queryset = Question.objects.all("answers")
+#     paginate_by = 4
+#     context_object_name = 'answers'
+#     ordering = ['-date_created']
 
 ##------------------------------------------------------------------------------
 class QuestionDetailView(View):
@@ -52,7 +53,8 @@ class QuestionDetailView(View):
     
     def get(self, request, pk):
         question = get_object_or_404(Question, id = pk)
-        context = {'question':question}
+        answers = question.answers.all()
+        context = {'question':question, 'answers': answers}
         return render(request, 'forum/question/about.html', context)
 
 

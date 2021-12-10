@@ -14,6 +14,7 @@
         {{question.body}}
         <br>
         {% if request.user == question.author %}
+        <br><br>
             <a class = "btn btn-secondary" href="{% url 'question_update' question.id %}" >
                 Redaktə et
             </a>
@@ -22,26 +23,21 @@
             </a>
         {% endif %}
     </div>
-    {% with comments.count as total_comments %}
-        <h3>
-            Cəmi {{total_comments}} şərh
-        </h3>
-    {% endwith %}
-    {% for comment in comments %}
-        <div class="card">
-            <p class="info">
-                Comment {{forloop.counter}} by {{comment.name_author}}
-                {{comment.created}}
-            </p>
-            {{comment.body|linebreaks}}
-        </div>
-    {% empty %}
-        <p>İlk şərhçi siz olun! </p>
-    {% endfor %}
 
-{% if new_comment %}
-    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
-{% endif %}
+{% for a in answers %}
+    <div class = "card mb-10">
+        <div class="card card-title">
+            <a class="card-link" href="{{a.get_absolute_url}}">
+                <h3> {{a.author.username}} </h3>
+            </a>
+        </div>
+        <div class="car-body">
+            {{a.body|truncatewords:30|linebreaks}}
+        </div>
+    </div>
+{% empty %}
+<h3>There is no answer yet.</h3>
+{% endfor %}
 
 {% if user.is_authenticated %}
     <form action=" " method="post" enctype="multipart/form-data">
