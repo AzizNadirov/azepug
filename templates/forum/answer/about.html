@@ -3,12 +3,15 @@
 {% load crispy_forms_tags %}
 {% block body %}
 <div class="container">
-    <h2><i>{{answer.question.title}}</i></h2>
+    <a href="{% url 'question_detail' answer.question.id %}">
+        <h2><i>{{answer.question.title}}</i></h2>
+    </a>
     <span><i>{{answer.question.body}}</i></span>
     <hr>
     <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.username %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
-    <div class="text-sm-center">
-        {{answer.body}}
+    <div class="card">
+        <p>{{answer.body}}</p>
+    </div>
         <br>
         {% if request.user == answer.author %}
             <a class = "btn btn-secondary" href="{% url 'answer_update' answer.question.id answer.id %}" >
@@ -19,11 +22,11 @@
                 Sil
             </a>
         {% endif %}
-    </div>
         {% with comments.count as total_comments %}
-        <h4> 
+        <br>
+        <h5> 
             Cəmi {{total_comments}} şərh
-        </h4>
+        </h5>
     {% endwith %}
     {% for comment in comments %}
         <div class="card">
@@ -34,7 +37,7 @@
             {{comment.body|linebreaks}}
         </div>
     {% empty %}
-        <h4>İlk şərhçi siz olun! </h4>
+        <span>İlk şərhçi siz olun! </span>
     {% endfor %}
 
 {% if user.is_authenticated %}
