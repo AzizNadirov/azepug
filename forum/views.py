@@ -10,6 +10,10 @@ class QuestionCreateView(CreateView):
     form_class = QuestionCreateForm
     template_name = 'forum/question/create.html'
 
+    def get_queryset(self):
+        return Question.objects.all()
+        
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['answer_form'] = AnswerCreateForm()

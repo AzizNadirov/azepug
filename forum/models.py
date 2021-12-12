@@ -29,6 +29,7 @@ class Question(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now = True)
     tags = models.ManyToManyField(Tag, related_name= "questions")
+    closed = models.BooleanField(default=False)
 
 
     def __str__(self):
