@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.views.generic import View, CreateView, ListView, DeleteView, UpdateView
 
 from forum.models import Answer, Question
@@ -10,9 +10,6 @@ class QuestionCreateView(CreateView):
     form_class = QuestionCreateForm
     template_name = 'forum/question/create.html'
 
-    def get_queryset(self):
-        return Question.objects.all()
-        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -34,6 +31,7 @@ class AnswerCreateView(CreateView):
         form.instance.question = self.request.question
         return super().form_valid(form)
 
+
 ###-----------------------------------------------------------------------------
 
 class QuestionListView(ListView):
@@ -43,26 +41,27 @@ class QuestionListView(ListView):
     context_object_name = 'questions'
     ordering = ['-date_created']
 
-
-# class AnswerListView(ListView):
-#     model = Answer
-#     template_name = 'forum/answer/list.html'
-#     # get_queryset = Question.objects.all("answers")
-#     paginate_by = 4
-#     context_object_name = 'answers'
-#     ordering = ['-date_created']
-
 ##------------------------------------------------------------------------------
 class QuestionDetailView(View):
     def post(self, request, pk):
         question = get_object_or_404(Question, id = pk)
-        context = {'question':question}
+        answer_form = AnswerCreateForm(data = request.POST, files = request.FILES)
+        if answer_form.is_valid():
+            a = answer_form.save(commit = False)
+            a.author = request.user
+            a.question = question
+            a.save()
+        else:
+            return HttpResponse(answer_form.errors)
+        answer_form = AnswerCreateForm()
+        context = {'question':question, 'answer_form':  answer_form}
         return render(request, 'forum/question/about.html', context)
     
     def get(self, request, pk):
         question = get_object_or_404(Question, id = pk)
+        answer_form = AnswerCreateForm()
         answers = question.answers.all()
-        context = {'question':question, 'answers': answers}
+        context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
         return render(request, 'forum/question/about.html', context)
 
 
