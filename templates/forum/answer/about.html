@@ -4,16 +4,18 @@
 {% block body %}
 <div class="container">
     <h2><i>{{answer.question.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.user.id %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
+    <span><i>{{answer.question.body}}</i></span>
+    <hr>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.username %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
     <div class="text-sm-center">
-        {{post.content}}
+        {{answer.body}}
         <br>
         {% if request.user == answer.author %}
-            <a class = "btn btn-secondary" href="{% url 'answer_update' answer.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'answer_update' answer.question.id answer.id %}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'answer_delete' answer.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'answer_delete' answer.question.id answer.id %}" >
                 Sil
             </a>
         {% endif %}
@@ -35,10 +37,6 @@
         <h4>İlk şərhçi siz olun! </h4>
     {% endfor %}
 
-{% if new_comment %}
-    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
-{% else %}
-    <h3>Yeni şərh əlavə et</h3>
 {% if user.is_authenticated %}
     <form method="POST" enctype="multipart/form-data">
     {{comment_form|crispy}}
@@ -49,7 +47,6 @@
     </form>
 {% else %}
     <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
-{% endif %}
 {% endif %}
 </div>
 {% endblock %}

@@ -27,7 +27,7 @@
 {% for a in answers %}
     <div class = "card mb-10">
         <div class="card card-title">
-            <a class="card-link" href="{{a.get_absolute_url}}">
+            <a class="card-link" href="{% url 'answer_detail' question.id a.id %}">
                 <h3> {{a.author.username}} </h3>
             </a>
         </div>

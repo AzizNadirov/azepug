@@ -60,8 +60,8 @@ class QuestionDetailView(View):
 
 
 class AnswerDetailView(View):
-    def post(self, request, pk):
-        answer = get_object_or_404(Answer, id = pk)
+    def post(self, request, pk, a_pk):
+        answer = get_object_or_404(Answer, id = a_pk)
         comments = answer.comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm(data = request.POST, files=request.FILES)
@@ -70,16 +70,14 @@ class AnswerDetailView(View):
             new_comment.answer = answer
             new_comment.author = request.user
             new_comment.save()
-            comment_form = CommentForm()
-        else:
-            comment_form = CommentForm()
+        comment_form = CommentForm()
 
-        context = {'answer':answer,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'answer':answer,'comments':comments, 'comment_form':comment_form}
         return render(request, 'forum/answer/about.html', context)
     
 
-    def get(self, request, pk):
-        answer = get_object_or_404(Answer, id = pk)
+    def get(self, request, pk, a_pk):
+        answer = get_object_or_404(Answer, id = a_pk)
         comments = answer.comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm()

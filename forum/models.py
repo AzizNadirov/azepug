@@ -35,8 +35,8 @@ class Question(models.Model):
         return f"{self.title[:51]} : {self.author.username}"
 
 
-    def get_absolute_url(self):
-        return reverse('question_detail', kwargs = {'pk': self.id})
+    # def get_absolute_url(self):
+    #     return reverse('question_detail', kwargs = {'pk': self.id})
 
 
 
@@ -51,5 +51,5 @@ class Answer(models.Model):
     def __str__(self):
         return f"Answer {self.author} to {self.question.title}"
 
-    def get_absolute_url(self):
-        return reverse('answer_detail', kwargs = {'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('answer_detail', kwargs = {'a_pk': self.pk})
