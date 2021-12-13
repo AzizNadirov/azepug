@@ -54,7 +54,8 @@ class QuestionDetailView(View):
         else:
             return HttpResponse(answer_form.errors)
         answer_form = AnswerCreateForm()
-        context = {'question':question, 'answer_form':  answer_form}
+        answers = question.answers.all()
+        context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
         return render(request, 'forum/question/about.html', context)
     
     def get(self, request, pk):
