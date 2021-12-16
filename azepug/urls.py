@@ -21,6 +21,7 @@ urlpatterns = [
     path('vacancies/', include('vacancy.urls'), name = 'vacancy'),
     path('events/', include('events.urls'), name = "event_list"),
     path('forum/', include('forum.urls')),
+    path('news/', include('news.urls')),
 ]
 
 if settings.DEBUG:

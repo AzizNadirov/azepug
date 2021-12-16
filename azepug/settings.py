@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'vacancy',
     'events',
     'forum',
+    'news',
 
     "crispy_forms",
     "crispy_bootstrap5",
