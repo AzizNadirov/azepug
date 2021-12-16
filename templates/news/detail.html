@@ -1,4 +1,4 @@
-{% extends 'blog/post_list.html'%}
+{% extends 'base.html'%}
 {% block title %} {{news.title}} - AzePUG {% endblock %}
 {% load crispy_forms_tags %}
 {% block body %}
@@ -9,11 +9,11 @@
         {{news.body}}
         <br>
         {% if request.user == news.author %}
-            <a class = "btn btn-secondary" href="{% url 'update_news' news.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'news_update' news.id %}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'delete_news' news.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'news_delete' news.id %}" >
                 Sil
             </a>
         {% endif %}

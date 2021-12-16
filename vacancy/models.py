@@ -31,7 +31,7 @@ class Vacancy(m.Model):
 
 
     def get_absolute_url(self):
-        return reverse('about_vacancy', kwargs = {'pk': self.pk})
+        return reverse('vacancy_detail', kwargs = {'pk': self.pk})
 
     class Meta:
         verbose_name = 'Vakansiya'

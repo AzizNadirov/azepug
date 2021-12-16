@@ -18,8 +18,8 @@ urlpatterns = [
     path('user/<str:username>/', users_views.user, name = 'user'),
     path('profile/', users_views.profile, name = 'profile'),
     path('edit/', users_views.edit_profile_view, name = 'edit_profile'),
-    path('vacancies/', include('vacancy.urls'), name = 'vacancy'),
-    path('events/', include('events.urls'), name = "event_list"),
+    path('vacancies/', include('vacancy.urls')),
+    path('events/', include('events.urls')),
     path('forum/', include('forum.urls')),
     path('news/', include('news.urls')),
 ]

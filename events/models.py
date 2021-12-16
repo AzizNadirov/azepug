@@ -19,7 +19,7 @@ class Event(models.Model):
     tags = models.ManyToManyField(Tag, related_name="events")
 
     def get_absolute_url(self):
-        return reverse('about_event', kwargs = {'pk': self.pk})
+        return reverse('event_detail', kwargs = {'pk': self.pk})
 
     def __str__(self):
         return f"[{self.title}]{self.author.username}"

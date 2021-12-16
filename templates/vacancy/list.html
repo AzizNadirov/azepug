@@ -7,14 +7,14 @@
             Vakansiyalar
         </h2>
         <div class="mb-4">
-            <a class = "btn btn-secondary" href="{% url 'create_vacancy' %}">
+            <a class = "btn btn-secondary" href="{% url 'vacancy_create' %}">
                 Vakansiya əlavə et
             </a>
         </div>
         {% for v in vacancies %}
             <div class = "card mb-10">
                 <div class="card card-title">
-                    <a class="card-link" href="{% url 'about_vacancy' v.id %}">
+                    <a class="card-link" href="{% url 'vacancy_detail' v.id %}">
                       <h3> {{v.title}} </h3>
                     </a>
                 </div>

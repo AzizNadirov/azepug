@@ -19,10 +19,10 @@
         </ul>
         <br>
         {% if request.user == event.author %}
-            <a class = "btn btn-secondary" href="{% url 'update_event' event.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'event_update' event.id %}" >
                 Redaktə et
             </a>
-            <a class = "btn btn-secondary" href="{% url 'delete_event' event.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'event_delete' event.id %}" >
                 Sil
             </a>
         {% endif %}

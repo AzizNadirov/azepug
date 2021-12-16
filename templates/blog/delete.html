@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Diqqət! Tədbirin silinməsi - AzePUG {% endblock %}
+{% block title %} Diqqət! Məqalənin silinməsi - AzePUG {% endblock %}
 
 {% block body %}
 <div class="container">
@@ -8,16 +8,16 @@
         {% csrf_token %}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">
-                Tədbirin silinməsi
+                Məqalənin silinməsi
             </legend>
-            <h2>Tədbir silinəcək! Davam edim? </h2>
+            <h2>Məqalə silinəcək! Davam edim? </h2>
         </fieldset>
         <div class="form-group">
             <button class="btn btn-outline-danger" type = 'submit'>
                 Bəli
             </button>
 
-            <a class="btn btn-outline-secondary" href="{% url 'vacancy:about_vacancy' object.id %}">
+            <a class="btn btn-outline-secondary" href="{% url 'blog_detail' object.id %}">
                 Xeyir
             </a>
         </div>

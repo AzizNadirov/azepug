@@ -1,44 +1,53 @@
-{% extends 'blog/post_list.html'%}
-{% block title %} {{post.title}} - AzePUG {% endblock %}
+{% extends 'base.html'%}
+{% block title %} {{vacancy.title}} {% endblock %}
 {% load crispy_forms_tags %}
-{% block body %}
+{% block body%}
 <div class="container">
-    <h2><i>{{post.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' post.author.username %}">{{post.author}}</a> Tarix:{{post.date_created}}</i></p>
+    <h2><i>{{vacancy.title}}</i></h2>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' vacancy.author.username %}">{{vacancy.author}}</a> Tarix:{{vacancy.date_created}}</i></p>
     <div class="text-sm-center">
-        {{post.content}}
+        {{vacancy.content}}
         <br>
-        {% if request.user == post.author %}
-            <a class = "btn btn-secondary" href="{% url 'update_post' post.id %}" >
+        <ul>
+            <li>Bitmə tarixi: {{vacancy.dead_line}}</li>
+            {% if vacancy.freelance %}
+                <li>Freelance: Hə</li>
+            {% else %}
+                <li>Freelance: Yox</li>
+            {% endif %}
+        </ul>
+        <br>
+        {% if request.user == vacancy.author %}
+            <a class = "btn btn-secondary" href="{{vacancy.get_absolute_url}}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'delete_post' post.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'vacancy_delete' vacancy.id %}" >
                 Sil
             </a>
         {% endif %}
     </div>
-        {% with comments.count as total_comments %}
-        <h4> 
+    {% with comments.count as total_comments %}
+        <h3>
             Cəmi {{total_comments}} şərh
-        </h4>
+        </h3>
     {% endwith %}
     {% for comment in comments %}
         <div class="card">
             <p class="info">
-                Şərh  {{forloop.counter}} < - {{comment.name_author}}
+                Comment {{forloop.counter}} by {{comment.name_author}}
                 {{comment.created}}
             </p>
             {{comment.body|linebreaks}}
         </div>
     {% empty %}
-        <h4>İlk şərhçi siz olun! </h4>
+        <p>İlk şərhçi siz olun! </p>
     {% endfor %}
 
 {% if new_comment %}
     <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
-{% else %}
-    <h3>Yeni şərh əlavə et</h3>
+{% endif %}
+
 {% if user.is_authenticated %}
     <form method="POST" enctype="multipart/form-data">
     {{comment_form|crispy}}
@@ -50,6 +59,6 @@
 {% else %}
     <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
 {% endif %}
-{% endif %}
+
 </div>
 {% endblock %}

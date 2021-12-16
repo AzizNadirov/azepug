@@ -4,16 +4,16 @@ from .views import NewsListView, NewsDetailView, NewsCreateView, NewsUpdateView,
 
 
 urlpatterns = [
-    path('', NewsListView.as_view(), name='list_news'),
+    path('', NewsListView.as_view(), name='news_list'),
 
     path('<int:pk>/',
     NewsDetailView.as_view() , name='news_detail'),
 
-    path('new/', NewsCreateView.as_view(), name='create_news'),
+    path('new/', NewsCreateView.as_view(), name='news_create'),
 
     path('<int:pk>/update/',
-    NewsUpdateView.as_view(), name='update_news'),
+    NewsUpdateView.as_view(), name='news_update'),
 
     path('<int:pk>/remove/',
-    NewsDeleteView.as_view(), name='delete_news'),
+    NewsDeleteView.as_view(), name='news_delete'),
 ]

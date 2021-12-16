@@ -10,7 +10,7 @@ from .forms import CommentForm, CreatePostForm
 
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/post_list.html'
+    template_name = 'blog/list.html'
     paginate_by = 4
     context_object_name = 'posts'
     ordering = ['-date_created']
@@ -34,7 +34,7 @@ class PostDetailView(View):
             comment_form = CommentForm()
 
         context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'blog/about_post.html', context)
+        return render(request, 'blog/detail.html', context)
     
 
     def get(self, request, pk):
@@ -43,14 +43,12 @@ class PostDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'blog/about_post.html', context)
+        return render(request, 'blog/detail.html', context)
 
 
 class PostCreateView(LoginRequiredMixin,CreateView):
-    # model = Post
-    # fields = ['title', 'category', 'content']
     form_class = CreatePostForm
-    template_name = 'blog/create_post.html'
+    template_name = 'blog/create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -60,7 +58,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['title', 'tags', 'content']
-    template_name = 'blog/create_post.html'
+    template_name = 'blog/create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -73,7 +71,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin ,DeleteView):
     model = Post
-    template_name = 'blog/delete_post.html'
+    template_name = 'blog/delete.html'
     success_url = '/blogs'
 
     def test_func(self):

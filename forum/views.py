@@ -56,14 +56,14 @@ class QuestionDetailView(View):
         answer_form = AnswerCreateForm()
         answers = question.answers.all()
         context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
-        return render(request, 'forum/question/about.html', context)
+        return render(request, 'forum/question/detail.html', context)
     
     def get(self, request, pk):
         question = get_object_or_404(Question, id = pk)
         answer_form = AnswerCreateForm()
         answers = question.answers.all()
         context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
-        return render(request, 'forum/question/about.html', context)
+        return render(request, 'forum/question/detail.html', context)
 
 
 
@@ -81,7 +81,7 @@ class AnswerDetailView(View):
         comment_form = CommentForm()
 
         context = {'answer':answer,'comments':comments, 'comment_form':comment_form}
-        return render(request, 'forum/answer/about.html', context)
+        return render(request, 'forum/answer/detail.html', context)
     
 
     def get(self, request, pk, a_pk):
@@ -90,7 +90,7 @@ class AnswerDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'answer': answer,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'forum/answer/about.html', context)
+        return render(request, 'forum/answer/detail.html', context)
 
 ##-------------------------------------------------------------------------------------------------
 

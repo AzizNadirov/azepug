@@ -10,7 +10,7 @@ from .forms import CommentForm, EventCreateForm
 
 class EventCreateView(LoginRequiredMixin,CreateView):
     form_class = EventCreateForm
-    template_name = 'events/create_event.html'
+    template_name = 'events/create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -19,7 +19,7 @@ class EventCreateView(LoginRequiredMixin,CreateView):
 
 class EventListView(ListView):
     model = Event
-    template_name = 'events/event_list.html'
+    template_name = 'events/list.html'
     paginate_by = 4
     context_object_name = 'events'
     ordering = ['-date_created']
@@ -42,7 +42,7 @@ class EventDetailView(View):
             comment_form = CommentForm()
 
         context = {'event':event,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'events/about_event.html', context)
+        return render(request, 'events/detail.html', context)
     
 
     def get(self, request, pk):
@@ -51,13 +51,13 @@ class EventDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'event':event,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'events/about_event.html', context)
+        return render(request, 'events/detail.html', context)
 
 
 class EventUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = Event
     fields = ['title', 'organiser', 'desc', 'starts_at', 'ends_at', 'tags']
-    template_name = 'events/create_event.html'
+    template_name = 'events/createt.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -71,7 +71,7 @@ class EventUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 
 class EventDeleteView(LoginRequiredMixin, UserPassesTestMixin ,DeleteView):
     model = Event
-    template_name = 'events/delete_event.html'
+    template_name = 'events/deletet.html'
     success_url = '/events'
 
     def test_func(self):

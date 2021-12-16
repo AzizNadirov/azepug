@@ -26,7 +26,7 @@ class Post(m.Model):
     tags = m.ManyToManyField(Tag, verbose_name= "Teqlər",  related_name="posts")
 
     def get_absolute_url(self):
-        return reverse('about_post', kwargs = {'pk': self.pk})
+        return reverse('blog_detail', kwargs = {'pk': self.pk})
         
     #-------------- Managers --------------------------
     objects = m.Manager()

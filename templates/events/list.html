@@ -7,14 +7,14 @@
             Tədbirlər
         </h2>
         <div class="mb-4">
-            <a class = "btn btn-secondary" href="{% url 'create_event' %}">
+            <a class = "btn btn-secondary" href="{% url 'event_create' %}">
                 Tədbir əlavə et!
             </a>
         </div>
         {% for event in events %}
             <div class = "card mb-10">
                 <div class="card card-title">
-                    <a class="card-link" href="{% url 'about_event' event.id %}">
+                    <a class="card-link" href="{% url 'event_detail' event.id %}">
                       <h3> {{event.title}} </h3>
                     </a>
                 </div>

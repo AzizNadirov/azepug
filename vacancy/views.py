@@ -8,7 +8,7 @@ from .forms import CommentForm, VacancyCreateForm
 
 class VacancyListView(ListView):
     model = Vacancy
-    template_name = 'vacancy/vacancy_list.html'
+    template_name = 'vacancy/list.html'
     paginate_by = 10
     context_object_name = 'vacancies'
     ordering = ['-date_created']
@@ -33,7 +33,7 @@ class VacancyDetailView(View):
         context = {'vacancy':vacancy,
                 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
 
-        return render(request, 'vacancy/about_vacancy.html', context)
+        return render(request, 'vacancy/detail.html', context)
 
     def get(self, request, pk):
         vacancy = get_object_or_404(Vacancy, id = pk)
@@ -44,16 +44,14 @@ class VacancyDetailView(View):
         context = {'vacancy':vacancy,
                 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
 
-        return render(request, 'vacancy/about_vacancy.html', context)
+        return render(request, 'vacancy/detail.html', context)
 
 
 
 
 class VacancyCreateView(LoginRequiredMixin,CreateView):
-    # model=Vacancy
-    # fields = ['title', 'employer', 'content', 'contact', 'min_salary', 'dead_line', 'freelance']
     form_class = VacancyCreateForm()
-    template_name = 'vacancy/create_vacancy.html'
+    template_name = 'vacancy/createy.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -63,7 +61,7 @@ class VacancyCreateView(LoginRequiredMixin,CreateView):
 class VacancyUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model=Vacancy
     fields = ['title', 'employer', 'content', 'contact', 'min_salary', 'dead_line', 'freelance']
-    template_name = 'vacancy/create_vacancy.html'
+    template_name = 'vacancy/create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -77,7 +75,7 @@ class VacancyUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 
 class VacancyDeleteView(LoginRequiredMixin, UserPassesTestMixin ,DeleteView):
     model = Vacancy
-    template_name = 'vacancy/delete_vacancy.html'
+    template_name = 'vacancy/delete.html'
     success_url = '/vacancies'
 
     def test_func(self):
