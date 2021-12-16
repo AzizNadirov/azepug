@@ -2,6 +2,7 @@ from django.db import models as m
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from base.models import AbstractComment
 
 
 class PublishedManager(m.Manager):
@@ -39,19 +40,10 @@ class Post(m.Model):
         verbose_name, verbose_name_plural = "Post", "Postlar"
 
 
-class Comment(m.Model):
+class Comment(AbstractComment):
     author = m.ForeignKey(User,verbose_name='müəllif', related_name = 'b_comments', null = True, on_delete=m.SET_NULL)
     post = m.ForeignKey(Post, related_name = 'b_comments', on_delete = m.CASCADE)
-    email = m.EmailField('Elektron poçt')
-    body = m.TextField('Şərh')
-    created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
-    updated = m.DateTimeField('Yenilənmə tariix', auto_now = True)
-    active = m.BooleanField('Aktiv', default = True)
-    image = m.ImageField(null = True, blank = True)
-
-    class Meta:
-        ordering = ('-created',)
-
+   
     def __str__(self):
-         return f'Comment to -- " by {self.author} on: {self.created}'
+         return f'Comment to -- " by {self.author} on: {self.created_at}'
 

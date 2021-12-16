@@ -3,19 +3,13 @@ from django.urls import reverse
 from users.models import User
 from blog.models import Tag
 
+from base.models import AbstractComment
 
-class Comment(models.Model):
+
+class Comment(AbstractComment):
     author = models.ForeignKey(User, verbose_name='müəllif', related_name = 'f_comments', 
         null = True, on_delete=models.SET_NULL)
     answer = models.ForeignKey('Answer', related_name = 'comments', on_delete = models.CASCADE)
-    body = models.TextField('Şərh', max_length = 1024)
-    created = models.DateTimeField('Yaradılma tarixi',auto_now_add = True)
-    updated = models.DateTimeField('Yenilənmə tariix', auto_now = True)
-    active = models.BooleanField('Aktiv', default = True)
-    image = models.ImageField(null = True, blank = True)
-
-    class Meta:
-        ordering = ('-created',)
 
     def __str__(self):
          return f'{self.author} - comment to answer: {self.answer}'

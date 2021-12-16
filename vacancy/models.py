@@ -2,6 +2,7 @@ from django.db import models as m
 from django.contrib.auth.models import User
 from django.urls import reverse
 from blog.models import Tag
+from base.models import  AbstractComment
 
 
 
@@ -39,17 +40,9 @@ class Vacancy(m.Model):
         return f'{self.title} - {self.author}'
 
 
-class Comment(m.Model):
+class Comment(AbstractComment):
     vacancy = m.ForeignKey(Vacancy, on_delete=m.CASCADE, related_name='v_comments')
     author = m.ForeignKey(User,verbose_name='müəllif', related_name = 'v_comments', on_delete=m.CASCADE)
-    body = m.TextField('Şərh')
-    created = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
-    updated = m.DateTimeField('Yenilənmə tariix', auto_now = True)
-    active = m.BooleanField('Aktiv', default = True)
-    image = m.ImageField(null = True, blank = True)
-
-    class Meta:
-        ordering = ('-created',)
 
     def __str__(self):
-        return f'Comment to {self.vacancy} " by {self.author} on: {self.created}'
+        return f'Comment to {self.vacancy} " by {self.author} on: {self.created_at}'

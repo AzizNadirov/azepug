@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models.fields.related import ForeignKey
 from blog.models import Tag
 from vacancy.models import Employer
+from base.models import AbstractComment
 
 
 
@@ -23,18 +24,10 @@ class Event(models.Model):
     def __str__(self):
         return f"[{self.title}]{self.author.username}"
 
-class Comment(models.Model):
+class Comment(AbstractComment):
     author = models.ForeignKey(User,verbose_name='müəllif', related_name = 'e_comments', 
         null = True, on_delete=models.SET_NULL)
-    event = models.ForeignKey(Event, related_name = 'comments', on_delete = models.CASCADE)
-    body = models.TextField('Şərh', max_length = 1024)
-    created = models.DateTimeField('Yaradılma tarixi',auto_now_add = True)
-    updated = models.DateTimeField('Yenilənmə tariix', auto_now = True)
-    active = models.BooleanField('Aktiv', default = True)
-    image = models.ImageField(null = True, blank = True)
-
-    class Meta:
-        ordering = ('-created',)
+    event = models.ForeignKey(Event, related_name = 'e_comments', on_delete = models.CASCADE)
 
     def __str__(self):
          return f'Comment to -- " by {self.author} on: {self.created}'

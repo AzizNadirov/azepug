@@ -1,8 +1,7 @@
 from django import forms
 from .models import Event, Comment
 
-# class DateTimeInput(forms.DateTimeInput):
-#     input_type = 'datetime'
+
 
 class EventCreateForm(forms.ModelForm):
      class Meta:
