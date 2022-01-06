@@ -50,8 +50,8 @@ class VacancyDetailView(View):
 
 
 class VacancyCreateView(LoginRequiredMixin,CreateView):
-    form_class = VacancyCreateForm()
-    template_name = 'vacancy/createy.html'
+    form_class = VacancyCreateForm
+    template_name = 'vacancy/create.html'
 
     def form_valid(self, form):
         form.instance.author = self.request.user
