@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
+from .forms import UserRegistrationForm, ProfileUpdateForm
 from django.core.paginator import Paginator
 
 from blog.models import Post
@@ -24,22 +24,18 @@ def register(request):
 @login_required
 def edit_profile_view(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, request.FILES,  instance = request.user)
-        p_form = ProfileUpdateForm(instance = request.user)
+        form = ProfileUpdateForm(request.POST, request.FILES,  instance = request.user)
 
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
-            p_form.save()
+        if form.is_valid():
+            form.save()
             messages.success(request, f'Dəyişiklik uğurla tamamlandı.')
             return redirect('profile')
-        else:
-            print('Err:',u_form.errors, p_form.errors)
 
     else:
-        u_form = UserUpdateForm(instance = request.user)
+        form = ProfileUpdateForm(instance = request.user)
         p_form = ProfileUpdateForm(instance = request.user)
 
-    context = {'u_form':u_form,'p_form':p_form}
+    context = {'form':form}
     return render(request, 'users/edit_profile.html', context)
 
 @login_required

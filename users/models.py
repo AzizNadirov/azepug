@@ -10,13 +10,13 @@ from events.models import Event
 
 
 def photo_upload(instance, filename):
-    dir = os.path.join(MEDIA_ROOT,'profile_images',f'{instance.user.username}' )
+    dir = os.path.join(MEDIA_ROOT,'profile_images',f'{instance.user_name}' )
     walk = list(os.walk(dir))
     try:
         for old_photo in walk[-1][-1]:
             os.remove(os.path.join(dir,old_photo))
     except: IndexError
-    return f'profile_images/{instance.user.username}/{filename}'
+    return f'profile_images/{instance.user_name}/{filename}'
 
 
 class Contacts(models.Model):
