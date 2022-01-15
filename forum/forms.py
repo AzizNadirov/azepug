@@ -6,13 +6,13 @@ from .models import Question, Answer, Comment
 class QuestionCreateForm(forms.ModelForm):
      class Meta:
         model = Question
-        fields = ['title', 'body', 'tags']
+        fields = ['title', 'content', 'tags']
 
 
 class AnswerCreateForm(forms.ModelForm):
      class Meta:
         model = Answer
-        fields = ['body']
+        fields = ['content']
 
 
 class CommentForm(forms.ModelForm):

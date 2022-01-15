@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'blog',
     'home',
-    'users',
+    'users.apps.UsersConfig',
     'vacancy',
     'events',
     'forum',
@@ -139,6 +139,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'  # for django 3.2
 
+INTERNAL_IPS = ['127.0.0.1',]
+
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.history.HistoryPanel',
     'debug_toolbar.panels.versions.VersionsPanel',
@@ -161,6 +163,8 @@ DEBUG_TOOLBAR_PANELS = [
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
 
+
+AUTH_USER_MODEL = 'users.Profile'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 

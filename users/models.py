@@ -1,5 +1,6 @@
+from django.utils import timezone
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from PIL import Image
 import os
 
@@ -26,20 +27,46 @@ class Contacts(models.Model):
 
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField("Profil şəkli", upload_to=photo_upload, default = 'default_avatar.jpg', null=True)
-    bio = models.TextField(max_length=1024)
+class ProfileManager(BaseUserManager):
+
+    def create_superuser(self, email, user_name, first_name, password, **kwargs):
+        kwargs.setdefault('is_staff', True)
+        kwargs.setdefault('is_superuser', True)
+        kwargs.setdefault('is_active', True)
+        return self.create_user(email, user_name, first_name, password, **kwargs)
+
+    def create_user(self, email, user_name, first_name, password, **kwargs):
+        email = self.normalize_email(email)
+        user = self.model(email = email, user_name=user_name, first_name = first_name, **kwargs)
+        user.set_password(password)
+        ## do some validations
+        user.save()
+        return user
+
+
+class Profile(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True)
+    user_name = models.CharField(max_length=50, unique=True)
+    first_name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
+    start_date = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(upload_to=photo_upload, default = 'default_avatar.jpg', null=True, blank = True)
+    about = models.TextField(max_length=1024, blank = True, null = True)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
     events = models.ManyToManyField(Event, related_name="participants", null = True)
+    is_staff = models.BooleanField(default = False)
+    is_active = models.BooleanField(default = False)
 
-    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['user_name', 'first_name']
+
+    objects = ProfileManager()
     
     def get_absolute_url(self):
         return reverse('user', kwargs = {'pk': self.pk})
     
     def __str__(self):
-        return f'{self.user.username} Profile' 
+        return f'{self.user_name}' 
 
 
     def save(self, *args, **kwargs):

@@ -11,7 +11,7 @@
         </i>
     </p>
     <div class="text-sm-center">
-        {{question.body}}
+        {{question.content}}
         <br>
         {% if request.user == question.author %}
         <br><br>
@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="car-body">
-            {{a.body|truncatewords:30|linebreaks}}
+            {{a.content|truncatewords:30|linebreaks}}
         </div>
     </div>
 {% empty %}

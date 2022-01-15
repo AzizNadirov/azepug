@@ -1,7 +1,9 @@
+import imp
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.conf import settings
+
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 from django.core.paginator import Paginator
 
@@ -23,18 +25,19 @@ def register(request):
 def edit_profile_view(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, request.FILES,  instance = request.user)
-        p_form = ProfileUpdateForm(instance = request.user.profile)
-        print(u_form.is_valid() and p_form.is_valid())
+        p_form = ProfileUpdateForm(instance = request.user)
 
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
             messages.success(request, f'Dəyişiklik uğurla tamamlandı.')
             return redirect('profile')
+        else:
+            print('Err:',u_form.errors, p_form.errors)
 
     else:
         u_form = UserUpdateForm(instance = request.user)
-        p_form = ProfileUpdateForm(instance = request.user.profile)
+        p_form = ProfileUpdateForm(instance = request.user)
 
     context = {'u_form':u_form,'p_form':p_form}
     return render(request, 'users/edit_profile.html', context)
@@ -53,17 +56,17 @@ def profile(request):
 
 def user(request, username):
     # NUM_TOP_ARTS = 10
-    user = get_object_or_404(User, username = username)
+    user = get_object_or_404(settings.AUTH_USER_MODEL, user_name = username)
     user_articles_queryset = Post.published.filter( author__id = user.id).order_by('-date_created')
 
     paginator = Paginator(user_articles_queryset, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    if request.user.username == username:
+    if request.user.user_name == username:
         owner = True
     else:
         owner = False
-    context = {'s_user': user, 'is_owner': owner, "articles":user_articles_queryset,
+    context = {'u': user, "articles":user_articles_queryset,
                'is_paginated':True, 'page_obj':page_obj}
-    return render(request, 'users/profile.html',context)
+    return render(request, 'users/user.html',context)

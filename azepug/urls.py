@@ -8,7 +8,7 @@ from django.contrib.auth import views as auth_views
 from users import views as users_views
 
 urlpatterns = [
-    path('debug_toolbar:__debug__/', include(debug_toolbar.urls)),
+    path('__debug__/', include(debug_toolbar.urls)),
     path('post/', include('blog.urls')),
     path('', include('home.urls')),
     path('admin/', admin.site.urls),

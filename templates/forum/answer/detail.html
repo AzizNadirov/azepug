@@ -6,11 +6,11 @@
     <a href="{% url 'question_detail' answer.question.id %}">
         <h2><i>{{answer.question.title}}</i></h2>
     </a>
-    <span><i>{{answer.question.body}}</i></span>
+    <span><i>{{answer.question.content}}</i></span>
     <hr>
     <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.username %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
     <div class="card">
-        <p>{{answer.body}}</p>
+        <p>{{answer.content}}</p>
     </div>
         <br>
         {% if request.user == answer.author %}

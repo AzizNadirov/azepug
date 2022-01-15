@@ -13,7 +13,7 @@ class NewsListView(ListView):
     template_name = 'news/list.html'
     paginate_by = 4
     context_object_name = 'news'
-    ordering = ['-created_at']
+    ordering = ['-date_created']
 
 
 class NewsDetailView(View):
@@ -53,7 +53,7 @@ class NewsCreateView(LoginRequiredMixin,CreateView):
 
 class NewsUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = News
-    fields = ['title', 'body', 'tags']
+    fields = ['title', 'content', 'tags']
     template_name = 'news/create.html'
 
     def form_valid(self, form):

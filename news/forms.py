@@ -10,5 +10,5 @@ class CommentForm(forms.ModelForm):
 class CreateNewsForm(forms.ModelForm):
     class Meta:
         model = News
-        fields = ['title', 'body', 'drafted', 'tags']
+        fields = ['title', 'content', 'drafted', 'tags']
         # wingets = {}

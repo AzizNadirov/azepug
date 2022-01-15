@@ -1,15 +1,16 @@
 from django.db import models as m
-from django.contrib.auth.models import User
+from django.conf import settings
+
 from django.urls import reverse
 from blog.models import Tag
-from base.models import  AbstractComment
+from base.models import  AbstractComment, AbstractPost
 
 
 
 
 class Employer(m.Model):
     name = m.CharField( "Adı" ,max_length=128)
-    workers = m.ManyToManyField(User, related_name = "works_at", verbose_name = "Əməkdaşlar", null = True, blank = True)
+    workers = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name = "works_at", verbose_name = "Əməkdaşlar", null = True, blank = True)
     founded_at = m.DateField("Yaradılma tarixi", null = True)
 
 
@@ -17,17 +18,15 @@ class Employer(m.Model):
         return f"{self.name}"
 
 
-class Vacancy(m.Model):
-    author = m.ForeignKey(User, on_delete=m.CASCADE)
+class Vacancy(AbstractPost):
+    author = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.CASCADE)
     employer = m.ForeignKey(Employer, related_name = 'vacancies', on_delete=m.CASCADE)
-    title = m.CharField('Başlıq', max_length = 128)
-    content = m.TextField('Məzmun')
     dead_line = m.DateField("Bitmə tarixi (YYYY-MM-DD)", null=True)
-    date_created = m.DateField("Yaradılma tarixi", auto_now_add=True)
     freelance = m.BooleanField("Freelance imkanı")
     contact = m.CharField( "Əlaqə ünvanı" ,max_length=128)
     min_salary = m.PositiveIntegerField("Minimal maaş")
     tags = m.ManyToManyField(Tag, related_name="vacancies")
+    likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies")
 
 
     def get_absolute_url(self):
@@ -42,7 +41,7 @@ class Vacancy(m.Model):
 
 class Comment(AbstractComment):
     vacancy = m.ForeignKey(Vacancy, on_delete=m.CASCADE, related_name='v_comments')
-    author = m.ForeignKey(User,verbose_name='müəllif', related_name = 'v_comments', on_delete=m.CASCADE)
+    author = m.ForeignKey(settings.AUTH_USER_MODEL,verbose_name='müəllif', related_name = 'v_comments', on_delete=m.CASCADE)
 
     def __str__(self):
         return f'Comment to {self.vacancy} " by {self.author} on: {self.created_at}'

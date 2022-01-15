@@ -1,13 +1,14 @@
 from django.db import models
 from django.urls import reverse
-from users.models import User
 from blog.models import Tag
+from django.conf import settings
 
-from base.models import AbstractComment
+
+from base.models import AbstractComment, AbstractPost
 
 
 class Comment(AbstractComment):
-    author = models.ForeignKey(User, verbose_name='müəllif', related_name = 'f_comments', 
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='müəllif', related_name = 'f_comments', 
         null = True, on_delete=models.SET_NULL)
     answer = models.ForeignKey('Answer', related_name = 'comments', on_delete = models.CASCADE)
 
@@ -15,12 +16,9 @@ class Comment(AbstractComment):
          return f'{self.author} - comment to answer: {self.answer}'
 
 
-class Question(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="questions")
-    title = models.CharField(verbose_name = "Başlıq",max_length=128)
-    body = models.TextField(verbose_name= "Məzmun")
+class Question(AbstractPost):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="questions")
     supports = models.IntegerField(default=0)
-    date_created = models.DateTimeField(auto_now_add=True)
     last_edited = models.DateTimeField(auto_now = True)
     tags = models.ManyToManyField(Tag, related_name= "questions")
     closed = models.BooleanField(default=False)
@@ -35,13 +33,12 @@ class Question(models.Model):
 
 
 
-class Answer(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="answers")
+class Answer(AbstractPost):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="answers")
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name= "answers")
-    body = models.TextField(verbose_name= "Məzmun")
     supports = models.IntegerField(default=0)
-    date_created = models.DateTimeField(auto_now_add = True)
     last_edited = models.DateTimeField(auto_now = True)
+    title = None
 
     def __str__(self):
         return f"Answer {self.author} to {self.question.title}"
