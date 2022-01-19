@@ -1,1 +1,7 @@
-body{background-color: rgb(24, 9, 90);}
+body{
+    background-color: rgb(224, 224, 12);
+}
+#nav_logo{
+    width: 60%;
+    border-radius: 10px;
+}

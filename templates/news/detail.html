@@ -4,7 +4,7 @@
 {% block body %}
 <div class="container">
     <h2><i>{{news.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' news.author.username %}">{{news.author}}</a> Tarix:{{news.date_created}}</i></p>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' news.author.user_name %}">{{news.author}}</a> Tarix:{{news.date_created}}</i></p>
     <div class="text-sm-center">
         {{news.content}}
         <br>

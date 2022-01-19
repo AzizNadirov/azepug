@@ -25,7 +25,7 @@ class Question(AbstractPost):
 
 
     def __str__(self):
-        return f"{self.title[:51]} : {self.author.username}"
+        return f"{self.title[:51]} : {self.author.user_name}"
 
 
     def get_absolute_url(self):

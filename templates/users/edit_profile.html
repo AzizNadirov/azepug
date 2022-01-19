@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Edit profile - {{user.username}} {% endblock %}
+{% block title %}Edit profile - {{user.user_name}} {% endblock %}
 {% load crispy_forms_tags %}
 
 
 {% block body %}
 <ul>
     <li><img class = "rounded-circle account-img" src="{{user.image.url}}" alt="user avatar"></li>
-    <li><h3>{{user.username}}</h3></li>
+    <li><h3>{{user.user_name}}</h3></li>
     <li><h3>{{user.email}}</h3></li>
 </ul>
 <hr>

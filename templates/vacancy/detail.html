@@ -4,7 +4,7 @@
 {% block body%}
 <div class="container">
     <h2><i>{{vacancy.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' vacancy.author.username %}">{{vacancy.author}}</a> Tarix:{{vacancy.date_created}}</i></p>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' vacancy.author.user_name %}">{{vacancy.author}}</a> Tarix:{{vacancy.date_created}}</i></p>
     <div class="text-sm-center">
         {{vacancy.content}}
         <br>

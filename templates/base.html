@@ -4,42 +4,22 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'home/base.css'%}">
     <link rel="stylesheet" href="{% static 'home/bootstrap.css'%}">
+    <link rel="stylesheet" href="{% static 'home/base.css'%}">
     {% block head %}{% endblock %}
         <title>{% block title %} {% endblock %}</title>
     </head>
     <body> 
-        <div class="navbar" style="background-color:rgb(24, 9, 90)">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/"> <img src = "{% static 'home/img/azepug_logo.png'%}"></a> 
-                </li>
-
-                <li class="nav-item"> <a class="nav-link" href="{% url 'blog_list' %}">Məqalələr</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'news_list' %}">Xəbərlər</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'vacancy_list' %}">Vakansiyalar</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'event_list' %}">Tədbirlər</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{% url 'question_list' %}">Forum</a></li>
-        {% if user.is_superuser %}
-                <li class="nav-item"> <a class="nav-link" href="/admin">Ad1000</a></li>
+       {% include  'navbar.html'%}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{message.tags}}"> {{message}}</div>
+            {% endfor %}
         {% endif %}
-                {% if user.is_authenticated %}
-                    <li class="nav-item"> <a class="nav-link"  href="{% url 'profile' %}">Hesabım </a></li>
-                {% else %}
-                    <li class="nav-item"> <a class="nav-link" href="{% url 'login'%}">Daxil ol</a></li>
-                {% endif %}
-            </ul>
-        </div>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{message.tags}}"> {{message}}</div>
-                {% endfor %}
-            {% endif %}
-            <div class="container">
-                {%block body%}
+        <div class="container">
+            {%block body%}
 
-                {%endblock%}
-            </div>
+            {%endblock%}
+        </div>
 </body>
 </html>

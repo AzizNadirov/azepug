@@ -6,7 +6,7 @@
     <h2><i>{{event.title}}</i></h2>
     <p class="text-lg-right">
         <i>Müəllif: 
-            <a href="{% url 'user' event.author.username %}">{{event.author}}</a> 
+            <a href="{% url 'user' event.author.user_name %}">{{event.author}}</a> 
             Tarix:{{event.date_created}}
         </i>
     </p>

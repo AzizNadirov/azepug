@@ -14,7 +14,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save() 
-            username = form.cleaned_data.get('username')
+            username = form.cleaned_data.get('user_name')
             messages.success(request, f'Qeydiyyat uğurla tamamlandı. Zəhmət olmasa yenidən daxil olun {username}!')
             return redirect('login')
     else:

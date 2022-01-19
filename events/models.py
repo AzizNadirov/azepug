@@ -21,7 +21,7 @@ class Event(AbstractPost):
         return reverse('event_detail', kwargs = {'pk': self.pk})
 
     def __str__(self):
-        return f"[{self.title}]{self.author.username}"
+        return f"[{self.title}]{self.author.user_name}"
 
 
 class Comment(AbstractComment):

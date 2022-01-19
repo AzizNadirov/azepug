@@ -10,7 +10,7 @@
 {% block body %}
     <div class="blog-list">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-10">
                 <div class = "h3"> Məqalələr</div>
                 {% if user.is_authenticated %}
                     <div class = "add__post">
@@ -23,12 +23,19 @@
             </div>
         </div>
         {% for post in posts%}
-        <div class = "card">
-            <a href="{{post.get_absolute_url}}"> <h3> {{post.title}}</h3></a>
-            <div class = "card-subtitle">
-                <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
+        <div class="row">
+            <div class = "card">
+                <div class="card-title mx-2">
+                    <a href="{{post.get_absolute_url}}"><h3> {{post.title}}</h3></a>
+                </div>
+                <div class = "card-subtitle mx-1">
+                    <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
+                    <hr>
+                </div>
+                <div class="card-body my-1 mx-2">
+                    <p>{{post.content|truncatewords:30|linebreaks}}</p>
+                </div>
             </div>
-            <p>{{post.content|truncatewords:30|linebreaks}}</p>
         </div>
         {% endfor %}
     </div>

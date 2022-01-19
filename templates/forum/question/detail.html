@@ -6,7 +6,7 @@
     <h2><i>{{question.title}}</i></h2>
     <p class="text-lg-right">
         <i>Müəllif: 
-            <a href="{% url 'user' question.author.username %}">{{question.author}}</a> 
+            <a href="{% url 'user' question.author.user_name %}">{{question.author}}</a> 
             Tarix:{{question.date_created}}
         </i>
     </p>
@@ -28,7 +28,7 @@
     <div class = "card mb-10">
         <div class="card card-title">
             <a class="card-link" href="{% url 'answer_detail' question.id a.id %}">
-                <h3> {{a.author.username}} </h3>
+                <h3> {{a.author.user_name}} </h3>
             </a>
         </div>
         <div class="car-body">

@@ -8,7 +8,7 @@
     </a>
     <span><i>{{answer.question.content}}</i></span>
     <hr>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.username %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.user_name %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
     <div class="card">
         <p>{{answer.content}}</p>
     </div>

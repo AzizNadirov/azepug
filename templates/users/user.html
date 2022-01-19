@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    {{u.username}} - AzePUG 
+    {{u.user_name}} - AzePUG 
 {% endblock title %}
 
 {% block head %}
@@ -15,7 +15,7 @@
                 <img src="{{u.profile.image.url}}"  class="rounded-circle account-img avatar">
                 <div class="media-body">
                     <h2 class="account-heading">
-                        {{u.username}}
+                        {{u.user_name}}
                     </h2>
                     <p class="text-secondary">
                         {{u.email}}
