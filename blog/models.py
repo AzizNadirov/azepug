@@ -2,13 +2,8 @@ from django.db import models as m
 from django.conf import settings
 from django.urls import reverse
 from base.models import AbstractComment, AbstractPost
+from taggit.managers import TaggableManager
 
-
-class Tag(m.Model):
-    name = m.CharField(max_length=128)
-
-    def __str__(self):
-        return str(self.name)
 
 
 
@@ -20,7 +15,7 @@ class PublishedManager(m.Manager):
 
 class Post(AbstractPost):
     author = m.ForeignKey(settings.AUTH_USER_MODEL, verbose_name= "Müəllif", related_name="posts", on_delete=m.CASCADE)
-    tags = m.ManyToManyField(Tag, verbose_name= "Teqlər",  related_name="posts")
+    tags = TaggableManager()
     likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts")
 
     objects = m.Manager()

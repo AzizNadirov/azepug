@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
-from blog.models import Tag
 from django.conf import settings
+from taggit.managers import TaggableManager
 
 
 from base.models import AbstractComment, AbstractPost
@@ -20,7 +20,7 @@ class Question(AbstractPost):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="questions")
     supports = models.IntegerField(default=0)
     last_edited = models.DateTimeField(auto_now = True)
-    tags = models.ManyToManyField(Tag, related_name= "questions")
+    tags = TaggableManager()
     closed = models.BooleanField(default=False)
 
 

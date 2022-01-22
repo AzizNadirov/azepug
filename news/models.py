@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from django.urls.base import reverse
-from blog.models import Tag 
+from taggit.managers import TaggableManager
 from base.models import AbstractComment,AbstractPost
 
 
@@ -17,7 +17,7 @@ class Comment(AbstractComment):
 class News(AbstractPost):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name = "news")
     image = models.ImageField()
-    tags = models.ManyToManyField(Tag, related_name = 'news')
+    tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_news")
 
     def __str__(self):

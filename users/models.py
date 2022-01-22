@@ -50,7 +50,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     start_date = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to=photo_upload, default = 'default_avatar.jpg', null=True, blank = True)
+    image = models.ImageField(upload_to=photo_upload, default = 'profile_pics/default_avatar.jpg', null=True, blank = True)
     about = models.TextField(max_length=1024, blank = True, null = True)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
     events = models.ManyToManyField(Event, related_name="participants", null = True)
@@ -71,14 +71,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        try:
-            if not self.image:
-                self.image = f"{os.path.join(MEDIA_ROOT, 'profile_pics')}/default_avatar.jpg"
-            else:
-                img = Image.open(self.image.path)
-                if img.height > 300 or img.width > 300:
-                    output_size = (300, 300)
-                    img.thumbnail(output_size)
-                    img.save(self.image.path)
-        except:
-            raise Exception("Error occured during hundling the profile photo")
+        if not self.image:
+            self.image = f"{os.path.join(MEDIA_ROOT, 'profile_pics')}/default_avatar.jpg"
+        else:
+            img = Image.open(self.image.path)
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
+                img.save(self.image.path)

@@ -3,9 +3,9 @@ from django.urls import reverse
 from django.conf import settings
 
 from django.db.models.fields.related import ForeignKey
-from blog.models import Tag
 from vacancy.models import Employer
 from base.models import AbstractComment, AbstractPost
+from taggit.managers import TaggableManager
 
 
 
@@ -14,7 +14,7 @@ class Event(AbstractPost):
     organiser = ForeignKey(Employer, related_name = "events", on_delete = models.CASCADE, verbose_name="Təşkilatçı")
     starts_at = models.DateTimeField("Başlanma tarixi")
     ends_at = models.DateTimeField("Sonlanma tarixi")
-    tags = models.ManyToManyField(Tag, related_name="events")
+    tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_events")
 
     def get_absolute_url(self):

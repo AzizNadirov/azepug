@@ -2,7 +2,7 @@ from django.db import models as m
 from django.conf import settings
 
 from django.urls import reverse
-from blog.models import Tag
+from taggit.managers import TaggableManager
 from base.models import  AbstractComment, AbstractPost
 
 
@@ -25,7 +25,7 @@ class Vacancy(AbstractPost):
     freelance = m.BooleanField("Freelance imkanı")
     contact = m.CharField( "Əlaqə ünvanı" ,max_length=128)
     min_salary = m.PositiveIntegerField("Minimal maaş")
-    tags = m.ManyToManyField(Tag, related_name="vacancies")
+    tags = TaggableManager()
     likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies")
 
 
