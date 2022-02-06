@@ -8,12 +8,13 @@
     <hr>
     <div class="text-sm-center">
         {{news.content}}
-        <br>
         <hr>
         <span>Tags: </span>
         {% for tag in news.tags.all %}
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
+        <br>
+        <span>Views: {{news.views}}</span>
         <hr>
         <br>
         {% if request.user == news.author %}

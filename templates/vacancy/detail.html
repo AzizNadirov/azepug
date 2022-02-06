@@ -18,8 +18,15 @@
                 <li>Remote: Yox</li>
             {% endif %}
         </ul>
-        <br>
         <hr>
+        <span>Tags: </span>
+        {% for tag in vacancy.tags.all %}
+            <a href="#" class="badge badge-info" >{{ tag }}</a>
+        {% endfor %}
+        <br>
+        <span>Views: {{vacancy.views}}</span>
+        <hr>
+        <br>
         {% if request.user == vacancy.author %}
             <a class = "btn btn-secondary" href="{{vacancy.get_absolute_url}}" >
                 Redaktə et

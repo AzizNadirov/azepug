@@ -1,3 +1,4 @@
+from django.db.models.expressions import F
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, ListView,UpdateView, DeleteView, View
@@ -27,11 +28,18 @@ class EventListView(ListView):
 
 
 class EventDetailView(View):
+    def increment_view(self, event):
+        """ view incerementer """
+
+        event.views = F('views') + 1
+        event.save()
+        event.refresh_from_db()
+
     def post(self, request, pk):
         event = get_object_or_404(Event, id = pk)
         comments = event.e_comments.filter(active = True)
         new_comment = None
-        comment_form = CommentForm(data = request.POST, files=request.FILES)
+        comment_form = CommentForm(data = request.event, files=request.FILES)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit = False)
             new_comment.event = event
@@ -51,6 +59,7 @@ class EventDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'event':event,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        self.increment_view(event)
         return render(request, 'events/detail.html', context)
 
 

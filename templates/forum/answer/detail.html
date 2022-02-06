@@ -12,7 +12,15 @@
     <div class="card">
         <p>{{answer.content}}</p>
     </div>
-        <br>
+    <hr>
+    <span>Tags: </span>
+    {% for tag in answer.tags.all %}
+        <a href="#" class="badge badge-info" >{{ tag }}</a>
+    {% endfor %}
+    <br>
+    <span>Views: {{answer.views}}</span>
+    <hr>
+    <br>
         {% if request.user == answer.author %}
             <a class = "btn btn-secondary" href="{% url 'answer_update' answer.question.id answer.id %}" >
                 Redaktə et

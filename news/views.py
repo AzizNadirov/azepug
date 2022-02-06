@@ -1,3 +1,4 @@
+from django.db.models.expressions import F
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView,CreateView, DeleteView, UpdateView
@@ -17,6 +18,13 @@ class NewsListView(ListView):
 
 
 class NewsDetailView(View):
+    def increment_view(self, event):
+        """ view incerementer """
+
+        event.views = F('views') + 1
+        event.save()
+        event.refresh_from_db()
+
     def post(self, request, pk):
         news = get_object_or_404(News, id = pk)
         comments = news.n_comments.filter(active = True)
@@ -39,6 +47,7 @@ class NewsDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'news':news,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        self.increment_view(news)
         return render(request, 'news/detail.html', context)
 
 

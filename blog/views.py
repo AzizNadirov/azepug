@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView,CreateView, DeleteView, UpdateView
 from django.views.generic.base import View
+from django.db.models.expressions import F
 
 from.models import Post
 from .forms import CommentForm, CreatePostForm
@@ -19,6 +20,13 @@ class PostListView(ListView):
 
 
 class PostDetailView(View):
+    def increment_view(self, post):
+        """ view incerementer """
+
+        post.views = F('views') + 1
+        post.save()
+        post.refresh_from_db()
+
     def post(self, request, pk):
         post = get_object_or_404(Post, id = pk)
         comments = post.b_comments.filter(active = True)
@@ -43,6 +51,7 @@ class PostDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        self.increment_view(post)
         return render(request, 'blog/detail.html', context)
 
 

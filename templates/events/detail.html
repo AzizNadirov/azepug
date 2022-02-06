@@ -12,12 +12,18 @@
     </p>
     <div class="text-sm-center mx-2">
         {{event.content}}
-        <br>
         <hr>
         <ul>
             <li>Başlama tarixi: {{event.starts_at}}</li>
             <li>Bitmə tarixi: {{event.ends_at}}</li>
         </ul>
+        <hr>
+        <span>Tags: </span>
+        {% for tag in event.tags.all %}
+            <a href="#" class="badge badge-info" >{{ tag }}</a>
+        {% endfor %}
+        <br>
+        <span>Views: {{event.views}}</span>
         <hr>
         <br>
         {% if request.user == event.author %}

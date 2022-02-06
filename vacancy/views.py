@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models.expressions import F
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.views.generic.base import View
 from .models import Vacancy
@@ -16,6 +17,13 @@ class VacancyListView(ListView):
 
 
 class VacancyDetailView(View):
+    def increment_view(self, event):
+        """ view incerementer """
+
+        event.views = F('views') + 1
+        event.save()
+        event.refresh_from_db()
+
     def post(self, request, pk):
         vacancy = get_object_or_404(Vacancy, id = pk)
         comments = vacancy.v_comments.filter(active = True)
@@ -43,7 +51,7 @@ class VacancyDetailView(View):
 
         context = {'vacancy':vacancy,
                 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-
+        self.increment_view(vacancy)
         return render(request, 'vacancy/detail.html', context)
 
 

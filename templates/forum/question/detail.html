@@ -12,6 +12,14 @@
     </p>
     <div class="text-sm-center">
         {{question.content}}
+        <hr>
+        <span>Tags: </span>
+        {% for tag in question.tags.all %}
+            <a href="#" class="badge badge-info" >{{ tag }}</a>
+        {% endfor %}
+        <br>
+        <span>Views: {{question.views}}</span>
+        <hr>
         <br>
         {% if request.user == question.author %}
         <br><br>

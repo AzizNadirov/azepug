@@ -1,3 +1,4 @@
+from django.db.models.expressions import F
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.views.generic import View, CreateView, ListView, DeleteView, UpdateView
@@ -43,6 +44,13 @@ class QuestionListView(ListView):
 
 ##------------------------------------------------------------------------------
 class QuestionDetailView(View):
+    def increment_view(self, q):
+        """ view incerementer """
+
+        q.views = F('views') + 1
+        q.save()
+        q.refresh_from_db()
+
     def post(self, request, pk):
         question = get_object_or_404(Question, id = pk)
         answer_form = AnswerCreateForm(data = request.POST, files = request.FILES)
@@ -63,11 +71,20 @@ class QuestionDetailView(View):
         answer_form = AnswerCreateForm()
         answers = question.answers.all()
         context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
+        self.increment_view(question)
         return render(request, 'forum/question/detail.html', context)
 
 
 
+
 class AnswerDetailView(View):
+    def increment_view(self, a):
+        """ view incerementer """
+
+        a.views = F('views') + 1
+        a.save()
+        a.refresh_from_db()
+
     def post(self, request, pk, a_pk):
         answer = get_object_or_404(Answer, id = a_pk)
         comments = answer.comments.filter(active = True)
@@ -90,6 +107,7 @@ class AnswerDetailView(View):
         new_comment = None
         comment_form = CommentForm()
         context = {'answer': answer,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        self.increment_view(answer)
         return render(request, 'forum/answer/detail.html', context)
 
 ##-------------------------------------------------------------------------------------------------

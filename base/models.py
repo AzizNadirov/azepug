@@ -9,7 +9,6 @@ class AbstractPost(m.Model):
     date_created = m.DateTimeField("Yaradılma tarixi", default= timezone.now)
     drafted = m.BooleanField(verbose_name="Qaralama", default = False)
     views = m.IntegerField(verbose_name="", default=0)
-    
 
     class Meta:
         abstract = True
