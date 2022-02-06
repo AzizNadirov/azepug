@@ -4,21 +4,29 @@
 {% block title %} Yeni post - AzePUG {% endblock %}
 
 {% block body %}
-<div class="container">
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <fieldset class="form-group">
-        <legend class="border-bottom mb-4">
-            Yeni post
-        </legend>
-        {{form|crispy}}
-    </fieldset>
-    <div class="form-group">
-        <button class="btn btn-outline-info" type = 'submit'>
-            Dərc et
-        </button>
-    </div>
-</form>
-</div>
-
+<div class="container pt-5">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Title</label>
+            {{form.title}}
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            {{form.content}}
+        </div>
+        <div class="form-group">
+            <label>Tags</label>
+            {{form.tags}}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <p>Common Tags: 
+    {% for mt in common_tags %}
+        <a href="#" class="badge badge-success">{{mt}}</a>
+    {% endfor %}
+    </p>
 {% endblock %}
+
+
+
