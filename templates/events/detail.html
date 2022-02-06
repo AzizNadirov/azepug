@@ -10,13 +10,15 @@
             Tarix:{{event.date_created}}
         </i>
     </p>
-    <div class="text-sm-center">
-        {{event.desc}}
+    <div class="text-sm-center mx-2">
+        {{event.content}}
         <br>
+        <hr>
         <ul>
             <li>Başlama tarixi: {{event.starts_at}}</li>
             <li>Bitmə tarixi: {{event.ends_at}}</li>
         </ul>
+        <hr>
         <br>
         {% if request.user == event.author %}
             <a class = "btn btn-secondary" href="{% url 'event_update' event.id %}" >

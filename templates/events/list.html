@@ -13,13 +13,13 @@
         </div>
         {% for event in events %}
             <div class = "card mb-10">
-                <div class="card card-title">
+                <div class="card card-title mx-2">
                     <a class="card-link" href="{% url 'event_detail' event.id %}">
                       <h3> {{event.title}} </h3>
                     </a>
                 </div>
-                <div class="car-body">
-                    {{event.desc|truncatewords:30|linebreaks}}
+                <div class="car-body mx-3">
+                    {{event.content|truncatewords:30|linebreaks}}
                 </div>
             </div>
         {% endfor %}

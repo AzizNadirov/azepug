@@ -96,7 +96,7 @@ class AnswerDetailView(View):
 
 class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Question
-    fields = ['title', 'body', 'tags']
+    fields = ['title', 'content', 'tags']
     template_name = 'forum/question/create.html'
 
     def form_valid(self, form):
@@ -109,7 +109,7 @@ class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class AnswerUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
     model = Answer
-    fields = ['body']
+    fields = ['content']
     template_name = 'forum/answer/create.html'
 
     def form_valid(self, form):
