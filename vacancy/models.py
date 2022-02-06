@@ -22,7 +22,7 @@ class Vacancy(AbstractPost):
     author = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.CASCADE)
     employer = m.ForeignKey(Employer, related_name = 'vacancies', on_delete=m.CASCADE)
     dead_line = m.DateField("Bitmə tarixi (YYYY-MM-DD)", null=True)
-    freelance = m.BooleanField("Freelance imkanı")
+    freelance = m.BooleanField("Remote imkanı")
     contact = m.CharField( "Əlaqə ünvanı" ,max_length=128)
     min_salary = m.PositiveIntegerField("Minimal maaş")
     tags = TaggableManager()

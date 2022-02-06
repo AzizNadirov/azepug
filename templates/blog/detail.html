@@ -4,13 +4,18 @@
 {% block body %}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
+    <hr>
     <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' post.author.user_name %}">{{post.author.user_name}}</a> Tarix:{{post.date_created}}</i></p>
+    <hr>
     <div class="text-sm-center">
         {{post.content}}
         <br>
+        <hr>
+        <span>Tags: </span>
         {% for tag in post.tags.all %}
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
+        <hr>
         {% if request.user == post.author %}
             <a class = "btn btn-secondary" href="{% url 'blog_update' post.id %}" >
                 Redaktə et
@@ -21,38 +26,5 @@
             </a>
         {% endif %}
     </div>
-        {% with comments.count as total_comments %}
-        <h4> 
-            Cəmi {{total_comments}} şərh
-        </h4>
-    {% endwith %}
-    {% for comment in comments %}
-        <div class="card">
-            <p class="info">
-                Şərh  {{forloop.counter}} < - {{comment.name_author}}
-                {{comment.created}}
-            </p>
-            {{comment.body|linebreaks}}
-        </div>
-    {% empty %}
-        <h4>İlk şərhçi siz olun! </h4>
-    {% endfor %}
-
-{% if new_comment %}
-    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
-{% else %}
-    <h3>Yeni şərh əlavə et</h3>
-{% if user.is_authenticated %}
-    <form method="POST" enctype="multipart/form-data">
-    {{comment_form|crispy}}
-    {% csrf_token %}
-        <p>
-            <input class="btn btn-success" type="submit" value="Əlavə et">
-        </p>
-    </form>
-{% else %}
-    <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
-{% endif %}
-{% endif %}
-</div>
+{% include 'comments.html' %}
 {% endblock %}

@@ -27,38 +27,5 @@
             </a>
         {% endif %}
     </div>
-    {% with comments.count as total_comments %}
-        <h3>
-            Cəmi {{total_comments}} şərh
-        </h3>
-    {% endwith %}
-    {% for comment in comments %}
-        <div class="card">
-            <p class="info">
-                Comment {{forloop.counter}} by {{comment.name_author}}
-                {{comment.created}}
-            </p>
-            {{comment.body|linebreaks}}
-        </div>
-    {% empty %}
-        <p>İlk şərhçi siz olun! </p>
-    {% endfor %}
-
-{% if new_comment %}
-    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
-{% endif %}
-
-{% if user.is_authenticated %}
-    <form action=" " method="post" enctype="multipart/form-data">
-    {{comment_form|crispy}}
-    {% csrf_token %}
-        <p>
-            <input class="btn btn-success" type="submit" value="Əlavə et">
-        </p>
-    </form>
-{% else %}
-    <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
-{% endif %}
-
-</div>
+{% include 'comments.html' %}
 {% endblock %}

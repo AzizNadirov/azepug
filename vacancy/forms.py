@@ -14,4 +14,4 @@ class VacancyCreateForm(forms.ModelForm):
         fields = ['title', 'employer', 'content', 'contact', 'min_salary', 'dead_line', 'freelance', 'tags']
     
 
-        widgets = {'dead_line': forms.DateTimeInput(attrs= {'type': "datetime-local"})}
+        widgets = {'dead_line': forms.DateInput(attrs= {'type': "date-local"})}

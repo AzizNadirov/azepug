@@ -1,0 +1,39 @@
+{% load crispy_forms_tags %}
+<hr>
+<br><br>
+    </div>
+        {% with comments.count as total_comments %}
+        <h6> 
+            Cəmi {{total_comments}} şərh
+        </h6>
+    {% endwith %}
+    {% for comment in comments %}
+        <div class="card my-1">
+            <p class="info">
+                Şərh #{{forloop.counter}} <- {{comment.name_author}}
+                {{comment.created}}
+            </p>
+            {{comment.body|linebreaks}}
+        </div>
+    {% empty %}
+        <h6>İlk şərhçi siz olun! </h6>
+    {% endfor %}
+
+{% if new_comment %}
+    <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
+{% else %}
+<br><br><br>
+    <h5>Yeni şərh əlavə et</h5>
+{% endif %}
+{% if user.is_authenticated %}
+    <form method="POST" enctype="multipart/form-data">
+    {{comment_form|crispy}}
+    {% csrf_token %}
+        <p>
+            <input class="btn btn-success" type="submit" value="Əlavə et">
+        </p>
+    </form>
+{% else %}
+    <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
+{% endif %}
+</div>
