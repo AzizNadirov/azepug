@@ -24,6 +24,62 @@
             </div>
         </div>
     </div>
+    <div class="last_activity">
+        <span class = "last-activity-title">My last activity:</span>
+        <div class="row recent-posts">
+            {% for post in recents.post %}
+               <div class="card rp-item">
+                   <a class="card-title rp-title" href = "{{post.get_absolute_url}}">{{post.title}}</a>
+                   <p class="card-body">
+                       {{post.content|truncatewords:20}}
+                   </p>
+               </div> 
+            {% empty %}
+               <span>There is nothing for display...</span>
+            {% endfor %}
+        </div>
+
+        <div class="row recent-news">
+            <h5 class="rp-title">Recent news</h5>
+            {% for news in recents.news %}
+            <div class="card rp-item">
+                <a class="card-title rp-title" href = "{{news.get_absolute_url}}">{{news.title}}</a>
+                <p class="card-body">
+                    {{news.content|truncatewords:20}}
+                </p>
+            </div> 
+            {% empty %}
+                <span>There is nothing for display...</span>
+            {% endfor %}
+        </div>
+        <div class="row recent-questions">
+            <h5 class="rp-title">Son suallar</h5>
+            {% for q in recents.question %}
+            <div class="card rp-item">
+                <a class="card-title rp-title" href = "{{q.get_absolute_url}}">{{q.title}}</a>
+                <p class="card-body">
+                    {{q.content|truncatewords:20}}
+                </p>
+            </div> 
+            {% empty %}
+                <span>There is nothing for display...</span>
+            {% endfor %}
+        </div>
+        <div class="row recent-questions">
+            <h5 class="rp-title">Son cavablar</h5>
+            {% for a in recents.answer %}
+            <div class="card rp-item">
+                <a class="card-title rp-title" href = "{{a.get_absolute_url}}">{{a.question.title}}</a>
+                <p class="card-body">
+                    {{a.content|truncatewords:20}}
+                </p>
+            </div> 
+            {% empty %}
+                <span>There is nothing for display...</span>
+            {% endfor %}
+        </div>
+
+    </div>
     <div class="row">
         <a href="{% url 'logout' %}" class="btn btn-sm btn-danger" style="display: block;"> Hesabdan çıx</a>
         <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-danger"> Redaktə et</a>

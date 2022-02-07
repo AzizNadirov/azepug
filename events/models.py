@@ -16,6 +16,7 @@ class Event(AbstractPost):
     ends_at = models.DateTimeField("Sonlanma tarixi")
     tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_events")
+    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="in_events")
 
     def get_absolute_url(self):
         return reverse('event_detail', kwargs = {'pk': self.pk})
@@ -30,4 +31,4 @@ class Comment(AbstractComment):
     event = models.ForeignKey(Event, related_name = 'e_comments', on_delete = models.CASCADE)
 
     def __str__(self):
-         return f'Comment to -- " by {self.author} on: {self.created}'
+         return f'Comment to -- " by {self.author}'

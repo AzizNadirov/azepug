@@ -6,5 +6,28 @@ img.avatar{
 div.card{
     display: block;
     width: 80rem;
-    text-align: right ;
+}
+
+span.last-activity-title{
+    font-size: 27px;
+    color: blue;
+    text-align: justify;
+    align-content: center;
+}
+
+div.recent-posts{
+    max-width: fit-content;
+}
+
+div.rp-item{
+    margin-bottom: 2px;
+}
+
+a.rp-title{
+    min-width: 100%;
+    display: inline;
+    text-align: center;
+    background-color: burlywood;
+    font-size: 25px;
+    margin-left: 13px;
 }

@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, ListView,UpdateView, DeleteView, View
 
 from events.models import Event
-from .forms import CommentForm, EventCreateForm
+from .forms import CommentForm, EventCreateForm, SubscribeForm
 
 
 
@@ -35,21 +35,37 @@ class EventDetailView(View):
         event.save()
         event.refresh_from_db()
 
+    def handle_subscribe(self, request_method ,event):
+        s = request_method.get('subscribe')
+        if s and s[0] == 'on':
+            event.participants.add(self.request.user)
+            event.save()
+            subscribed = True
+        else:
+            if self.request.user in event.participants.all():
+                event.participants.remove(self.request.user)
+                event.save()
+            subscribed = False
+        event.refresh_from_db()
+        return subscribed
+
     def post(self, request, pk):
+        subscribed = None
         event = get_object_or_404(Event, id = pk)
         comments = event.e_comments.filter(active = True)
         new_comment = None
-        comment_form = CommentForm(data = request.event, files=request.FILES)
+        comment_form = CommentForm(data = request.POST, files=request.FILES)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit = False)
             new_comment.event = event
             new_comment.author = request.user
             new_comment.save()
-            comment_form = CommentForm()
-        else:
-            comment_form = CommentForm()
+        subscribe_form = SubscribeForm()
+        comment_form = CommentForm()
+        subscribed = self.handle_subscribe(request.POST,event)
 
-        context = {'event':event,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'event':event,'comments':comments, 'new_comment':new_comment, 'subscribed':subscribed,
+                        'comment_form':comment_form, 'subscribe_form': subscribe_form}
         return render(request, 'events/detail.html', context)
     
 
@@ -58,7 +74,9 @@ class EventDetailView(View):
         comments = event.e_comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm()
-        context = {'event':event,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        subscribe_form = SubscribeForm()
+        subscribed = self.handle_subscribe(request.GET,event)
+        context = {'event':event,'comments':comments, 'new_comment':new_comment, 'subscribed':subscribed, 'comment_form':comment_form, 'subscribe_form': subscribe_form}
         self.increment_view(event)
         return render(request, 'events/detail.html', context)
 

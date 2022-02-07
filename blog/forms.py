@@ -9,7 +9,6 @@ class CommentForm(forms.ModelForm):
 
 
 class CreatePostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(queryset= Tag.objects.all(), label='Tag', widget=forms.TextInput(attrs={'class': "form-control"}))
     class Meta:
         model = Post
         fields = ['title', 'content', 'drafted', 'tags']

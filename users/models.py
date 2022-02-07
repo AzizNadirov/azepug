@@ -20,10 +20,10 @@ def photo_upload(instance, filename):
 
 
 class Contacts(models.Model):
-    email = models.EmailField()
-    github = models.URLField()
-    linkedin = models.URLField()
-    phone = models.CharField(max_length=10)
+    email = models.EmailField(null = True)
+    github = models.URLField(null = True)
+    linkedin = models.URLField(null = True)
+    phone = models.CharField(null = True, max_length=20)
 
 
 
@@ -53,12 +53,12 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     image = models.ImageField(upload_to=photo_upload, default = 'profile_pics/default_avatar.jpg', null=True, blank = True)
     about = models.TextField(max_length=1024, blank = True, null = True)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
-    events = models.ManyToManyField(Event, related_name="participants", null = True)
+    # events = models.ManyToManyField(Event, related_name="participants", null = True)
     is_staff = models.BooleanField(default = False)
     is_active = models.BooleanField(default = False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name', 'first_name']
+    REQUIRED_FIELDS = ['user_name',]    ## ['user_name', 'first_name']
 
     objects = ProfileManager()
     

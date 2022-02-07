@@ -43,5 +43,5 @@ class Answer(AbstractPost):
     def __str__(self):
         return f"Answer {self.author} to {self.question.title}"
 
-    # def get_absolute_url(self):
-    #     return reverse('answer_detail', kwargs = {'a_pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('answer_detail', kwargs = {'pk':self.question.id,'a_pk': self.pk})

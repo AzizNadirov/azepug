@@ -18,12 +18,26 @@
             <li>Bitmə tarixi: {{event.ends_at}}</li>
         </ul>
         <hr>
+        <span>İştirak edəcəm: </span>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{subscribe_form|crispy}}
+            {% if subscribed %}
+                <span class = "text-success">Subscribed. </span>
+            {% else %}
+                <span class="text-info">Not subscribed</span>
+            {% endif %}
+            <br>
+            <button type="submit" class = "btn btn-success btn-small">Submit</button>{{subscribed}}
+        </form>
+        <hr>
         <span>Tags: </span>
         {% for tag in event.tags.all %}
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
         <br>
         <span>Views: {{event.views}}</span>
+        <span>Participants: {{event.participants.count}}</span>
         <hr>
         <br>
         {% if request.user == event.author %}
