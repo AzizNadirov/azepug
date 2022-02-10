@@ -35,12 +35,12 @@
 
 {% for a in answers %}
     <div class = "card mb-10">
-        <div class="card card-title">
+        <div class="card card-title mx-2">
             <a class="card-link" href="{% url 'answer_detail' question.id a.id %}">
                 <h3> {{a.author.user_name}} </h3>
             </a>
         </div>
-        <div class="car-body">
+        <div class="car-body mx-2">
             {{a.content|truncatewords:30|linebreaks}}
         </div>
     </div>

@@ -56,6 +56,7 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     # events = models.ManyToManyField(Event, related_name="participants", null = True)
     is_staff = models.BooleanField(default = False)
     is_active = models.BooleanField(default = False)
+    # treasure = models.ManyToManyField()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name',]    ## ['user_name', 'first_name']

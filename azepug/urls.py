@@ -22,6 +22,7 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('qs/', include('forum.urls')),
     path('news/', include('news.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 if settings.DEBUG:

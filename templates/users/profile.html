@@ -24,6 +24,10 @@
             </div>
         </div>
     </div>
+    <div class="row login-logout">
+        <a href="{% url 'logout' %}" class="btn btn-sm btn-danger" style="display: block;"> Hesabdan çıx</a>
+        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-danger mx-3"> Redaktə et</a>
+    </div>
     <div class="last_activity">
         <span class = "last-activity-title">My last activity:</span>
         <div class="row recent-posts">
@@ -79,10 +83,6 @@
             {% endfor %}
         </div>
 
-    </div>
-    <div class="row">
-        <a href="{% url 'logout' %}" class="btn btn-sm btn-danger" style="display: block;"> Hesabdan çıx</a>
-        <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-danger"> Redaktə et</a>
     </div>
 </div>
 {% endblock body %}

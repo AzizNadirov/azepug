@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 
 
 
+
 class PublishedManager(m.Manager):
     def get_queryset(self):
         return super(PublishedManager,self).get_queryset().filter(drafted = False)

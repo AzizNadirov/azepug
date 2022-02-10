@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap5",
     "debug_toolbar",
     'taggit',
+    'ckeditor',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -168,5 +169,7 @@ LOGIN_REDIRECT_URL = 'home'
 AUTH_USER_MODEL = 'users.Profile'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+ckeditor_uploader = 'uploads/'
+CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'

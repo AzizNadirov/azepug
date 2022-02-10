@@ -3,6 +3,8 @@ from django.utils import timezone
 
 
 
+
+
 class AbstractPost(m.Model):
     title = m.CharField("Başlıq", max_length = 128)
     content = m.TextField("Məzmun")

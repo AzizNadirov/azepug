@@ -9,11 +9,12 @@
     {% endwith %}
     {% for comment in comments %}
         <div class="card my-1">
-            <p class="info">
-                Şərh #{{forloop.counter}} <- {{comment.name_author}}
-                {{comment.created}}
-            </p>
-            {{comment.body|linebreaks}}
+            <div class="card-title mx-3">
+                ||#{{forloop.counter}}||  {{comment.author}}: {{comment.created_at}}
+            </div>
+            <div class="card-body mx-2" style = "font-size: 18px">
+                {{comment.body|linebreaks}}
+            </div>
         </div>
     {% empty %}
         <h6>İlk şərhçi siz olun! </h6>
@@ -23,17 +24,21 @@
     <small class="text-success">Şərhiniz uğurla əlavə edildi</small>
 {% else %}
 <br><br><br>
-    <h5>Yeni şərh əlavə et</h5>
-{% endif %}
-{% if user.is_authenticated %}
-    <form method="POST" enctype="multipart/form-data">
-    {{comment_form|crispy}}
-    {% csrf_token %}
-        <p>
-            <input class="btn btn-success" type="submit" value="Əlavə et">
-        </p>
-    </form>
-{% else %}
-    <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
-{% endif %}
+<div class="comment-form" style = "border: solid black 2px;">
+    <div class = "mx-3 my-2">
+        <h5>Yeni şərh əlavə et</h5>
+    {% endif %}
+    {% if user.is_authenticated %}
+            <form method="POST" enctype="multipart/form-data">
+                {{comment_form|crispy}}
+                {% csrf_token %}
+                    <p>
+                        <input class="btn btn-success" type="submit" value="Əlavə et">
+                    </p>
+                </form>
+        </div>
+
+    {% else %}
+        <h5><strong>Şərh yazmaq üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
+    {% endif %}
 </div>
