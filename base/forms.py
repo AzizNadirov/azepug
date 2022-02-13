@@ -1,7 +1,8 @@
-# from django import forms
-# from .models import AbstractComment as Comment
+from django import forms
 
-# class AbstractCommentForm(forms.ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ['body', 'image']
+
+class SearchForm(forms.Form):
+    text = forms.CharField(max_length=50)
+    widgets = {'text': forms.TextInput(attrs={'class': 'form-control', 
+                'placeholder': 'Input `#` for search for UPI'})}
+    

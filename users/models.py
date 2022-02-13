@@ -50,10 +50,10 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=50)
     surname = models.CharField(max_length=50)
     start_date = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to=photo_upload, default = 'profile_pics/default_avatar.jpg', null=True, blank = True)
+    image = models.ImageField(upload_to=photo_upload, default = 'profile_pics/default_avatar.jpg',
+            null=True, blank = True)
     about = models.TextField(max_length=1024, blank = True, null = True)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
-    # events = models.ManyToManyField(Event, related_name="participants", null = True)
     is_staff = models.BooleanField(default = False)
     is_active = models.BooleanField(default = False)
     # treasure = models.ManyToManyField()

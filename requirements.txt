@@ -6,3 +6,4 @@ djangorestframework==3.13.1
 django-taggit
 django-ckeditor
 Pillow
+django-cors-headers

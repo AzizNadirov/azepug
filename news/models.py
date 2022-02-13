@@ -19,6 +19,7 @@ class News(AbstractPost):
     image = models.ImageField()
     tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_news")
+    like_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f"News: {self.title} : {self.author}"

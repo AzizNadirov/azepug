@@ -16,6 +16,7 @@ class Event(AbstractPost):
     ends_at = models.DateTimeField("Sonlanma tarixi")
     tags = TaggableManager()
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_events")
+    like_count = models.IntegerField(default=0)
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="in_events")
 
     def get_absolute_url(self):

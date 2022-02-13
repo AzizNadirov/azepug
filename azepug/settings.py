@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
 
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,6 +59,9 @@ MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -173,3 +178,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ckeditor_uploader = 'uploads/'
 CKEDITOR_UPLOAD_PATH = 'uploads/ckeditor/'
+
+CORS_ALLOW_ALL_ORIGINS = True

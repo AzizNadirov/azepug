@@ -1,4 +1,4 @@
-from django.db import models as m
+from django.db import models
 from django.conf import settings
 
 from django.urls import reverse
@@ -7,11 +7,10 @@ from base.models import  AbstractComment, AbstractPost
 
 
 
-
-class Employer(m.Model):
-    name = m.CharField( "Adı" ,max_length=128)
-    workers = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name = "works_at", verbose_name = "Əməkdaşlar", null = True, blank = True)
-    founded_at = m.DateField("Yaradılma tarixi", null = True)
+class Employer(models.Model):
+    name = models.CharField( "Adı" ,max_length=128)
+    workers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name = "works_at", verbose_name = "Əməkdaşlar", blank = True)
+    founded_at = models.DateField("Yaradılma tarixi", null = True)
 
 
     def __str__(self):
@@ -19,14 +18,15 @@ class Employer(m.Model):
 
 
 class Vacancy(AbstractPost):
-    author = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.CASCADE)
-    employer = m.ForeignKey(Employer, related_name = 'vacancies', on_delete=m.CASCADE)
-    dead_line = m.DateField("Bitmə tarixi (YYYY-MM-DD)", null=True)
-    freelance = m.BooleanField("Remote imkanı")
-    contact = m.CharField( "Əlaqə ünvanı" ,max_length=128)
-    min_salary = m.PositiveIntegerField("Minimal maaş")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    employer = models.ForeignKey(Employer, related_name = 'vacancies', on_delete=models.CASCADE)
+    dead_line = models.DateField("Bitmə tarixi (YYYY-MM-DD)", null=True)
+    freelance = models.BooleanField("Remote imkanı")
+    contact = models.CharField( "Əlaqə ünvanı" ,max_length=128)
+    min_salary = models.PositiveIntegerField("Minimal maaş")
     tags = TaggableManager()
-    likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies")
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies")
+    like_count = models.IntegerField(default=0)
 
 
     def get_absolute_url(self):
@@ -40,8 +40,8 @@ class Vacancy(AbstractPost):
 
 
 class Comment(AbstractComment):
-    vacancy = m.ForeignKey(Vacancy, on_delete=m.CASCADE, related_name='v_comments')
-    author = m.ForeignKey(settings.AUTH_USER_MODEL,verbose_name='müəllif', related_name = 'v_comments', on_delete=m.CASCADE)
+    vacancy = models.ForeignKey(Vacancy, on_delete=models.CASCADE, related_name='v_comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name='müəllif', related_name = 'v_comments', on_delete=models.CASCADE)
 
     def __str__(self):
         return f'Comment to {self.vacancy} " by {self.author} on: {self.created_at}'

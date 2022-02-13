@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView,CreateView, DeleteView, UpdateView
@@ -53,6 +54,11 @@ class PostDetailView(View):
         context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         self.increment_view(post)
         return render(request, 'blog/detail.html', context)
+    
+class PostLikeView(View):
+    def post(self, requset, *args, **kwargs):
+        # print(f"request Post: {requset.POST.keys()}")
+        return HttpResponse('<h1>Success</h1>')
 
 
 class PostCreateView(LoginRequiredMixin,CreateView):

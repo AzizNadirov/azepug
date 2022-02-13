@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import PostListView, PostDetailView, PostCreateView, PostUpdateView, PostDeleteView
+from .views import (PostListView, PostDetailView, PostCreateView,
+     PostUpdateView, PostDeleteView, PostLikeView)
 
 
 urlpatterns = [
@@ -10,6 +11,7 @@ urlpatterns = [
     PostDetailView.as_view() , name='blog_detail'),
 
     path('new/', PostCreateView.as_view(), name='blog_create'),
+    path('<int:pk>/like/', PostLikeView.as_view(), name='blog_like'),
 
     path('<int:pk>/update/',
     PostUpdateView.as_view(), name='blog_update'),
