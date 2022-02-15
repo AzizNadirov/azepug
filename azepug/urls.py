@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import debug_toolbar
 from django.contrib.auth import views as auth_views
+from base.views import UpiView
 
 from users import views as users_views
 
@@ -22,6 +23,7 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('qs/', include('forum.urls')),
     path('news/', include('news.urls')),
+    path('upi/<str:upi_code>',UpiView.as_view(), name = "get_upi"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

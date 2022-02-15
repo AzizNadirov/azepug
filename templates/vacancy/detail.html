@@ -28,7 +28,7 @@
         <hr>
         <br>
         {% if request.user == vacancy.author %}
-            <a class = "btn btn-secondary" href="{{vacancy.get_absolute_url}}" >
+            <a class = "btn btn-secondary" href="{% url 'vacancy_update' vacancy.id %}" >
                 Redaktə et
             </a>
 
@@ -40,4 +40,3 @@
 {% include 'comments.html' %}
 
 {% endblock %}
-    

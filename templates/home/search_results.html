@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load base_temptags %}
+{% block body %}
+<div class="h3"> Results for "{{text|truncatechars:20}}"</div>
+{% for app, qs in qsets.items %}
+    <h4>{{app}}({{qs|length}})</h4>
+    <hr>
+    {% object_list qset=qs %}
+{% empty %}
+<br><br>
+<h3> There is nothing ((( </h3>
+{% endfor %}
+<a href="{% url 'home' %}" class="btn btn-info"> Back to home </a>
+{% endblock body %}

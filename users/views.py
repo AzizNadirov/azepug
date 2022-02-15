@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.paginator import Paginator
@@ -72,8 +72,7 @@ class ProfileView(LoginRequiredMixin, View):
 def user(request, username):
     if username == request.user.user_name:
         return redirect('profile')
-    
-    # NUM_TOP_ARTS = 10
+
     user = get_object_or_404(Profile, user_name = username)
     user_articles_queryset = Post.published.filter( author__id = user.id).order_by('-date_created')
 

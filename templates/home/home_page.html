@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
+{% load base_temptags %}
 
 {%block title%}
     AzePUG
@@ -7,12 +8,27 @@
 
 {%block body%}
     <form action="" method="POST">
-        {% csrf_token %}
+        {% csrf_token %}    
         {{form|crispy}}
-        <button type="submit" class = "btn btn-success"> Search </button>
+        include content:
+        <input type="checkbox" name="in_context">
+        <br><br>
+        <button type="submit" class = "btn btn-success btn-small"> Search </button>
         <span class = "helper-search-input">Type text or <b>#</b> for unique post id <b>(UPI)</b> code searching. </span>
     </form>
+<hr>
+<div class="lasts-container">
+{% for app_name, qset in qsets.items %}
+    <div class="app-title h3"> {{app_name}} </div>
+    {% object_list qset=qset %}
+{% empty %}
+    <div class="text-warning h6"> Oh no, there's nothing to show ((</div>
+{% endfor %}
 
+
+
+
+</div>
     <style>
         span.helper-search-input{
             padding: 5px;
