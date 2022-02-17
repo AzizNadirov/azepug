@@ -57,10 +57,12 @@ class PostDetailView(View):
     
 class PostLikeView(View):
     def post(self, requset, *args, **kwargs):
-        # print(f"request Post: {requset.POST.keys()}")
+        print(f"request Post: {requset.POST.get()}")
         return HttpResponse('<h1>Success</h1>')
 
-
+    def get(self, request):
+        return HttpResponse('<h1>Get ok<h1>')
+        
 class PostCreateView(LoginRequiredMixin,CreateView):
     form_class = CreatePostForm
     template_name = 'blog/create.html'
@@ -87,7 +89,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin ,DeleteView):
     model = Post
     template_name = 'blog/delete.html'
-    success_url = '/post'
+    success_url = '/posts'
 
     def test_func(self):
         post = self.get_object()

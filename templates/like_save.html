@@ -1,9 +1,31 @@
 <div class="row like-save-container" >
     {% if post in user.liked_posts.all %}
-        <button class = "btn btn-info btn-like" id = "{{post.id}}" value="unlike" > Unlike </button>
+        <button class = "btn btn-info btn-like" id = "#tn-like" value="unlike" > Unlike </button>
     {% else %}
-        <button class = "btn btn-info btn-like" id = "{{post.id}}" value="like"> Like </button>
+        <button class = "btn btn-info btn-like" id = "btn-like" value="like"> Like </button>
     {% endif %}
     
     <button class = "btn btn-success mx-2" id = "btn-save"> Save </button>
 </div>
+ 
+<script>
+  console.log("in script")
+    $(document).on('click', '.btn-like', function (e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: BASE_URL + `posts/${btn_like.id}/like/`,
+          data: {
+            postid: {{post.id}},
+            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            action: $('#btn-like').val()
+          },
+          success: function (json) {
+            console.log(json)
+          },
+          error: function (xhr, errmsg, err) {
+      
+          }
+        });
+      })
+</script>

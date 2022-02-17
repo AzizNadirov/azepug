@@ -1,5 +1,6 @@
 from django.db import models as m
 from django.utils import timezone
+from ckeditor.fields import RichTextField
 
 
 
@@ -7,7 +8,7 @@ from django.utils import timezone
 
 class AbstractPost(m.Model):
     title = m.CharField("Başlıq", max_length = 128)
-    content = m.TextField("Məzmun")
+    content = RichTextField()
     date_created = m.DateTimeField("Yaradılma tarixi", default= timezone.now)
     drafted = m.BooleanField(verbose_name="Qaralama", default = False)
     views = m.IntegerField(verbose_name="", default=0)
