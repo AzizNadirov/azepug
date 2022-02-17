@@ -55,10 +55,15 @@ class PostDetailView(View):
         self.increment_view(post)
         return render(request, 'blog/detail.html', context)
     
-class PostLikeView(View):
-    def post(self, requset, *args, **kwargs):
-        print(f"request Post: {requset.POST.get()}")
-        return HttpResponse('<h1>Success</h1>')
+class PostLikeView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        postid = int(request.POST.get('postid'))
+        value = request.POST.get('value')
+        if value == "like":
+            request.user.liked_posts.add(postid)
+        elif value == 'unlike':
+            request.user.liked_posts.remove(postid)
+        return HttpResponse('<h1>Success</h1>', status = 200)
 
     def get(self, request):
         return HttpResponse('<h1>Get ok<h1>')

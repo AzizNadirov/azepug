@@ -2,7 +2,7 @@ const BASE_URL = "http://127.0.0.1:8000/"
 
 btn_like = document.getElementsByClassName('btn-like')[0]
 
-btn_save = document.getElementsByClassName("btn")
+btn_save = document.getElementsByClassName("btn-save")[0]
 console.log(btn_save)
 
 
