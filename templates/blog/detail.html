@@ -2,6 +2,7 @@
 {% block title %} {{post.title}} - AzePUG {% endblock %}
 {% load crispy_forms_tags %}
 {% block body %}
+
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
     <hr>
@@ -19,15 +20,7 @@
         <span>Views: {{post.views}}</span>
         <hr>
         {% if user.is_authenticated %}
-            <div class="row like-save-container" >
-                {% if post in user.liked_posts.all %}
-                    <button class = "btn btn-info btn-like" id = "{{post.id}}" value="unlike" > Unlike </button>
-                {% else %}
-                    <button class = "btn btn-info btn-like" id = "{{post.id}}" value="like"> Like </button>
-                {% endif %}
-                
-                <button class = "btn btn-success mx-2" id = "btn-save"> Save </button>
-            </div>
+            {% include 'like_save.html' %}
         {% endif %}
 
         {% if request.user == post.author %}

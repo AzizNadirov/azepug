@@ -69,6 +69,7 @@ class ProfileView(LoginRequiredMixin, View):
     def post(self, request):
         return HttpResponse("<h1>Post request to Profile detected</h1>")
 
+
 def user(request, username):
     if username == request.user.user_name:
         return redirect('profile')

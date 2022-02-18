@@ -65,8 +65,16 @@ class PostLikeView(LoginRequiredMixin, View):
             request.user.liked_posts.remove(postid)
         return HttpResponse('<h1>Success</h1>', status = 200)
 
-    def get(self, request):
-        return HttpResponse('<h1>Get ok<h1>')
+class PostSaveView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        postid = int(request.POST.get('postid'))
+        value = request.POST.get('value')
+        if value == "save":
+            request.user.treasure.blogs.add(postid)
+        elif value == 'unsave':
+            request.user.treasure.blogs.remove(postid)
+
+        return HttpResponse('<h1>Success</h1>', status = 200)
         
 class PostCreateView(LoginRequiredMixin,CreateView):
     form_class = CreatePostForm

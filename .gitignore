@@ -2,7 +2,7 @@
 *.log
 *.pot
 *.pyc
-__pycache__
+__pycache__/
 db.sqlite3
 
 # Visual Studio Code # 
@@ -13,4 +13,4 @@ db.sqlite3
 !.vscode/extensions.json 
 .history
 .idea
-environment/
+env/

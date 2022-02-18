@@ -1,12 +1,19 @@
+from statistics import mode
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from PIL import Image
 import os
+from django.db.models.signals import post_save
 
 from django.urls.base import reverse
 from azepug.settings import MEDIA_ROOT
+
 from events.models import Event
+from blog.models import Post
+from news.models import News
+from forum.models import Question
+from vacancy.models import Vacancy
 
 
 def photo_upload(instance, filename):
@@ -54,12 +61,13 @@ class Profile(AbstractBaseUser, PermissionsMixin):
             null=True, blank = True)
     about = models.TextField(max_length=1024, blank = True, null = True)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
-    is_staff = models.BooleanField(default = False)
-    is_active = models.BooleanField(default = False)
-    # treasure = models.ManyToManyField()
+    is_staff = models.BooleanField(default = True)
+    is_active = models.BooleanField(default = True)
+    objects = ProfileManager()
+    # treasure = models.OneToOneField('Treasure', on_delete = models.CASCADE)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['user_name',]    ## ['user_name', 'first_name']
+    REQUIRED_FIELDS = ['user_name', 'first_name']
 
     objects = ProfileManager()
     
@@ -80,3 +88,22 @@ class Profile(AbstractBaseUser, PermissionsMixin):
                 output_size = (300, 300)
                 img.thumbnail(output_size)
                 img.save(self.image.path)
+
+
+class Treasure(models.Model):
+    profile = models.OneToOneField(Profile, on_delete = models.CASCADE, blank = True, null = True)
+    blogs = models.ManyToManyField(Post, related_name = 'treasure', blank = True, null = True)
+    events = models.ManyToManyField(Event, related_name = 'treasure', blank = True, null = True)
+    news = models.ManyToManyField(News, related_name = 'treasure')
+    questions = models.ManyToManyField(Question, related_name = 'treasure', blank = True, null = True)
+    vacancies = models.ManyToManyField(Vacancy, related_name = 'treasure', blank = True, null = True)
+
+    def __str__(self):
+        return f"{self.profile.user_name}'s Treasure"
+
+
+def create_treasure(sender, instance, created, **kwargs):
+    if created:
+        Treasure.objects.create(profile = instance)
+
+post_save.connect(create_treasure, sender = Profile)
