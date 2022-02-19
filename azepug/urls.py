@@ -24,6 +24,7 @@ urlpatterns = [
     path('qs/', include('forum.urls')),
     path('news/', include('news.urls')),
     path('upi/<str:upi_code>',UpiView.as_view(), name = "get_upi"),
+    path('treasure/',users_views.TreasureListView.as_view(), name = "my_treasure"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 

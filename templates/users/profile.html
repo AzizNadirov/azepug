@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load base_temptags %}
 {% block title %}
     {{user.user_name}} - AzePUG 
 {% endblock title %}
@@ -27,6 +28,9 @@
     <div class="row login-logout">
         <a href="{% url 'logout' %}" class="btn btn-sm btn-danger" style="display: block;"> Hesabdan çıx</a>
         <a href="{% url 'edit_profile' %}" class="btn btn-sm btn-danger mx-3"> Redaktə et</a>
+    </div>
+    <div class="row saved-posts">
+        <a class = "btn btn-primary" href = "{% url 'my_treasure' %}"> My Treasure</a>
     </div>
     <div class="last_activity">
         <span class = "last-activity-title">My last activity:</span>

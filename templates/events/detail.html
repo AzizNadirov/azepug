@@ -40,6 +40,9 @@
         <span>Participants: {{event.participants.count}}</span>
         <hr>
         <br>
+        {% if user.is_authenticated %}
+            {% include 'like_save.html' %}
+        {% endif %}
         {% if request.user == event.author %}
             <a class = "btn btn-secondary" href="{% url 'event_update' event.id %}" >
                 Redaktə et

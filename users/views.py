@@ -88,3 +88,17 @@ def user(request, username):
     context = {'u': user, "articles":user_articles_queryset,
                'is_paginated':True, 'page_obj':page_obj}
     return render(request, 'users/user.html',context)
+
+
+class TreasureListView(View, LoginRequiredMixin):
+    def get(self, request):
+        qsets = {}
+        tr = request.user.treasure
+        qsets['blogs'] = tr.blogs.all()
+        qsets['news'] = tr.news.all()
+        qsets['events'] = tr.events.all()
+        qsets['questions'] = tr.questions.all()
+        qsets['vacancies'] = tr.vacancies.all()
+        context = {'qsets' : qsets}
+
+        return render(request, 'users/treasure.html', context)
