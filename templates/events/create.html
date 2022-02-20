@@ -4,13 +4,13 @@
 {% block title %} Yeni Tədbir - AzePUG {% endblock %}
 
 {% block body %}
-<div class="container">
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
         <legend class="border-bottom mb-4">
             Yeni Tədbir
         </legend>
+        <a href="#"><img src="{% static 'vacancy/png/plus.png' %}" alt="Təşkilatçı əlave et" id = "add_emp_btn"></a> <span class="add-emp">Təşkilatçı</span>
         {{form|crispy}}
     </fieldset>
     <div class="form-group">
@@ -19,6 +19,20 @@
         </button>
     </div>
 </form>
+<div class="popup">
+    <div class="popup-content">
+        <img src="{% static 'vacancy/png/close.png' %}" alt="close" class="close">
+        <div class="h5">Təşkilatçı(<i>vakansiyalar üçün işə götürən ola bilər</i>)</div>
+        <label for="input-emp-name"> Adı: </label>
+        <input type="text" placeholder="Təşkilatçı adı:" id = "input-emp-name">
+        <br>
+        <label for="input-emp-founded"> Təsis ili: (<i> boş qoymaq olar</i>) </label>
+        <input type="date" id = "input-emp_founded">
+        <br>
+        <button type="submit" class = "btn-success button mx-4" id = "btn-create-emp">Yarat</button>
+    </div>
 </div>
 
+<link rel="stylesheet" href="{% static 'vacancy/vacancy.css' %}">
+<script src="{% static 'vacancy/vacancy.js' %}"></script>
 {% endblock %}

@@ -10,7 +10,7 @@ from base.models import  AbstractComment, AbstractPost
 class Employer(models.Model):
     name = models.CharField( "Adı" ,max_length=128)
     workers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name = "works_at", verbose_name = "Əməkdaşlar", blank = True)
-    founded_at = models.DateField("Yaradılma tarixi", null = True)
+    founded_at = models.DateField("Yaradılma tarixi", null = True, blank = True)
 
 
     def __str__(self):
@@ -25,7 +25,7 @@ class Vacancy(AbstractPost):
     contact = models.CharField( "Əlaqə ünvanı" ,max_length=128)
     min_salary = models.PositiveIntegerField("Minimal maaş")
     tags = TaggableManager()
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies")
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies", blank = True, null = True)
     like_count = models.IntegerField(default=0)
 
 

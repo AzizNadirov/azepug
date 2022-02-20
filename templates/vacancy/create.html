@@ -3,14 +3,14 @@
 {% load crispy_forms_tags %}
 {% block title %} Yeni Vakansiya - AzePUG {% endblock %}
 
-{% block body %}
-<div class="container">
+{% block body %}       
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
         <legend class="border-bottom mb-4">
-            Yeni post
+            New vacancy
         </legend>
+        <a href="#"><img src="{% static 'vacancy/png/plus.png' %}" alt="Add employer" id = "add_emp_btn"></a> <span class="add-emp">Add Employer</span>
         {{form|crispy}}
     </fieldset>
     <div class="form-group">
@@ -19,6 +19,20 @@
         </button>
     </div>
 </form>
+<div class="popup">
+    <div class="popup-content">
+        <img src="{% static 'vacancy/png/close.png' %}" alt="close" class="close">
+        <div class="h5">Add Employer</div>
+        <label for="input-emp-name"> Employer name: </label>
+        <input type="text" placeholder="Employer name:" id = "input-emp-name">
+        <br>
+        <label for="input-emp-founded"> Founded at: </label>
+        <input type="date" id = "input-emp_founded">
+        <br>
+        <button type="submit" class = "btn-success button mx-4" id = "btn-create-emp">Create</button>
+    </div>
 </div>
 
+<link rel="stylesheet" href="{% static 'vacancy/vacancy.css' %}">
+<script src="{% static 'vacancy/vacancy.js' %}"></script>
 {% endblock %}

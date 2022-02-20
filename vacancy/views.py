@@ -1,9 +1,10 @@
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models.expressions import F
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView
 from django.views.generic.base import View
-from .models import Vacancy
+from .models import Vacancy, Employer
 from .forms import CommentForm, VacancyCreateForm
 
 
@@ -64,6 +65,18 @@ class VacancyCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+    
+class CreateEmployerView(LoginRequiredMixin,View):
+    def post(self, request):
+        name = request.POST.get('name')
+        founded_at = request.POST.get('founded_at')
+        if founded_at:
+            emp = Employer.objects.create(name = name, founded_at = founded_at)
+        else:
+            emp = Employer.objects.create(name = name)
+        emp.save()
+        context = {'code':200, 'emp_id': emp.id}
+        return JsonResponse(context)
 
 
 class VacancyUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
