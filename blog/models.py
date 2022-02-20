@@ -17,7 +17,7 @@ class PublishedManager(m.Manager):
 class Post(AbstractPost):
     author = m.ForeignKey(settings.AUTH_USER_MODEL, verbose_name= "Müəllif", related_name="posts", on_delete=m.CASCADE)
     tags = TaggableManager()
-    likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_posts")
+    likes = m.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_blogs")
     like_count = m.IntegerField(default=0)
     objects = m.Manager()
     published = PublishedManager()

@@ -37,7 +37,7 @@ class NewsDetailView(View):
             new_comment.save()
         scomment_form = CommentForm()
 
-        context = {'news':news,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'post':news,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         return render(request, 'news/detail.html', context)
     
 

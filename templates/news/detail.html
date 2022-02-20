@@ -1,28 +1,28 @@
 {% extends 'base.html'%}
-{% block title %} {{news.title}} - AzePUG {% endblock %}
+{% block title %} {{post.title}} - AzePUG {% endblock %}
 {% load crispy_forms_tags %}
 {% block body %}
 <div class="container">
-    <h2><i>{{news.title}}</i></h2>
-    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' news.author.user_name %}">{{news.author}}</a> Tarix:{{news.date_created}}</i></p>
+    <h2><i>{{post.title}}</i></h2>
+    <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' post.author.user_name %}">{{post.author}}</a> Tarix:{{post.date_created}}</i></p>
     <hr>
     <div class="text-sm-center">
-        {{news.content}}
+        {{post.content}}
         <hr>
         <span>Tags: </span>
         {% for tag in news.tags.all %}
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
         <br>
-        <span>Views: {{news.views}}</span>
+        <span>Views: {{post.views}}</span>
         <hr>
         <br>
-        {% if request.user == news.author %}
-            <a class = "btn btn-secondary" href="{% url 'news_update' news.id %}" >
+        {% if request.user == post.author %}
+            <a class = "btn btn-secondary" href="{% url 'news_update' post.id %}" >
                 Redaktə et
             </a>
 
-            <a class = "btn btn-secondary" href="{% url 'news_delete' news.id %}" >
+            <a class = "btn btn-secondary" href="{% url 'news_delete' post.id %}" >
                 Sil
             </a>
         {% endif %}

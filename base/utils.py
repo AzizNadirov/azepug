@@ -9,6 +9,16 @@ from forum.models import Question
 
 
 
+def get_model_by_appname(app_name:str):
+    app_list = ['blog', 'event', 'news', 'vacancy', 'question']
+    if app_name not in app_list:
+        return None
+    if app_name == 'blog': return Post
+    elif app_name == 'event': return Event
+    elif app_name == 'news': return News
+    elif app_name == 'vacancy': return Vacancy
+    elif app_name == 'question': return Question
+
 def get_top_n(n:int = 5):
     """
     returns a dict of top n posts from all apps
