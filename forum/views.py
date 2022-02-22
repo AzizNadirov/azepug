@@ -70,7 +70,7 @@ class QuestionDetailView(View):
         question = get_object_or_404(Question, id = pk)
         answer_form = AnswerCreateForm()
         answers = question.answers.all()
-        context = {'question':question, 'answers': answers, 'answer_form':  answer_form}
+        context = {'post':question, 'answers': answers, 'answer_form':  answer_form}
         self.increment_view(question)
         return render(request, 'forum/question/detail.html', context)
 

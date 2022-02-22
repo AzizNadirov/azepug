@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
-{% block title %} {{post.title}} - AzePUG {% endblock %}
 {% load crispy_forms_tags %}
+{% load base_temptags %}
+{% load static %}
+{% block title %} {{post.title}} - AzePUG {% endblock %}
 {% block body %}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
@@ -10,7 +12,7 @@
         {{post.content}}
         <hr>
         <span>Tags: </span>
-        {% for tag in news.tags.all %}
+        {% for tag in post.tags.all %}
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
         <br>
@@ -25,7 +27,11 @@
             <a class = "btn btn-secondary" href="{% url 'news_delete' post.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% like_save_tag user=user app_name='news' post=post %}
+                <script src="{% static 'news/news.js' %}"></script>
+            {% endif %}
         {% endif %}
 {% include 'comments.html' %}
-
 {% endblock %}

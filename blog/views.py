@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView,CreateView, DeleteView, UpdateView
@@ -27,24 +26,6 @@ class PostDetailView(View):
         post.views = F('views') + 1
         post.save()
         post.refresh_from_db()
-
-    def post(self, request, pk):
-        post = get_object_or_404(Post, id = pk)
-        comments = post.b_comments.filter(active = True)
-        new_comment = None
-        comment_form = CommentForm(data = request.POST, files=request.FILES)
-        if comment_form.is_valid():
-            new_comment = comment_form.save(commit = False)
-            new_comment.post = post
-            new_comment.author = request.user
-            new_comment.save()
-            comment_form = CommentForm()
-        else:
-            comment_form = CommentForm()
-
-        context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
-        return render(request, 'blog/detail.html', context)
-    
 
     def get(self, request, pk):
         post = get_object_or_404(Post, id = pk)

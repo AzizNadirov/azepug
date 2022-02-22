@@ -94,11 +94,11 @@ class TreasureListView(View, LoginRequiredMixin):
     def get(self, request):
         qsets = {}
         tr = request.user.treasure
-        qsets['blogs'] = tr.blogs.all()
+        qsets['blogs'] = tr.blog.all()
         qsets['news'] = tr.news.all()
-        qsets['events'] = tr.events.all()
-        qsets['questions'] = tr.questions.all()
-        qsets['vacancies'] = tr.vacancies.all()
+        qsets['events'] = tr.event.all()
+        qsets['questions'] = tr.question.all()
+        qsets['vacancies'] = tr.vacancy.all()
         context = {'qsets' : qsets}
 
         return render(request, 'users/treasure.html', context)

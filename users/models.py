@@ -92,11 +92,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
 class Treasure(models.Model):
     profile = models.OneToOneField(Profile, on_delete = models.CASCADE, blank = True, null = True)
-    blogs = models.ManyToManyField(Post, related_name = 'treasure', blank = True, null = True)
-    events = models.ManyToManyField(Event, related_name = 'treasure', blank = True, null = True)
+    blog = models.ManyToManyField(Post, related_name = 'treasure', blank = True, null = True)
+    event = models.ManyToManyField(Event, related_name = 'treasure', blank = True, null = True)
     news = models.ManyToManyField(News, related_name = 'treasure')
-    questions = models.ManyToManyField(Question, related_name = 'treasure', blank = True, null = True)
-    vacancies = models.ManyToManyField(Vacancy, related_name = 'treasure', blank = True, null = True)
+    question = models.ManyToManyField(Question, related_name = 'treasure', blank = True, null = True)
+    vacancy = models.ManyToManyField(Vacancy, related_name = 'treasure', blank = True, null = True)
 
     def __str__(self):
         return f"{self.profile.user_name}'s Treasure"

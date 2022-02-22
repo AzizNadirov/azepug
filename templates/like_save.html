@@ -1,16 +1,15 @@
 {% load static %}
 
 <div class="row like-save-container" >
-    {% if post in user.liked_posts.all %}
+    {% if post in likeds %}
         <button class = "btn btn-info btn-like" id = "{{post.id}}" value="unlike" > Unlike </button>
     {% else %}
         <button class = "btn btn-info btn-like" id="{{post.id}}"  value="like"> Like </button>
     {% endif %}
-    {% if post not in user.treasure.blogs.all %}
+    {% if post not in saveds %}
         <button class = "btn mx-2 btn-info btn-save" id = "{{post.id}}" value="save"> Save </button>
     {% else %}
         <button class = "btn btn-success mx-2 btn-save" id = "{{post.id}}" value = "unsave"> Unsave </button>
     {% endif %}
-    
 </div>
 <script src = "{% static 'base.js' %}"></script>

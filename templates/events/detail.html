@@ -1,13 +1,15 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
 {% load static %}
+{% load base_temptags %}
+
 {% block title %} {{post.title}} {% endblock %}
 {% block body%}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
     <p class="text-lg-right">
         <i>Müəllif: 
-            {% comment %} <a href="{% url 'user' post.author.user_name %}">{{post.author}}</a>  {% endcomment %}
+            <a href="{% url 'user' post.author.user_name %}">{{post.author}}</a> 
             Tarix:{{post.date_created}} {{event}}
         </i>
     </p>
@@ -29,7 +31,7 @@
                 <span class="text-info">Not subscribed</span>
             {% endif %}
             <br>
-            <button type="submit" class = "btn btn-success btn-small">Submit</button>{{subscribed}}
+            <button type="submit" class = "btn btn-success btn-small">Submit</button>
         </form>
         <hr>
         <span>Tags: </span>
@@ -41,9 +43,6 @@
         <span>Participants: {{post.participants.count}}</span>
         <hr>
         <br>
-        {% if user.is_authenticated %}
-            {% include 'like_save.html' %}
-        {% endif %}
         {% if request.user == post.author %}
             <a class = "btn btn-secondary" href="{% url 'event_update' post.id %}" >
                 Redaktə et
@@ -51,8 +50,12 @@
             <a class = "btn btn-secondary" href="{% url 'event_delete' post.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% like_save_tag user=user app_name='event' post=post %}
+                <script src="{% static 'events/events.js' %}"></script>
+            {% endif %}
         {% endif %}
     </div>
 {% include 'comments.html' %}
-<script src="{% static 'events/events.js' %}"></script>
 {% endblock %}

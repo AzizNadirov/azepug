@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 import debug_toolbar
 from django.contrib.auth import views as auth_views
-from base.views import UpiView, LikeView, SaveView
+from base.views import UpiView, LikeView, SaveView, SupportView
 
 from users import views as users_views
 
@@ -26,6 +26,7 @@ urlpatterns = [
     path('upi/<str:upi_code>',UpiView.as_view(), name = "get_upi"),
     path('treasure/',users_views.TreasureListView.as_view(), name = "my_treasure"),
     path('like', LikeView.as_view(), name = "like"),
+    path('support', SupportView.as_view(), name = "support"),
     path('save', SaveView.as_view(), name = "save"),
     path('ckeditor/', include('ckeditor_uploader.urls')),
 ]

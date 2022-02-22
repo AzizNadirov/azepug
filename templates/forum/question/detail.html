@@ -1,13 +1,15 @@
 {% extends 'base.html'%}
-{% block title %} {{post.title}}| AzePUG Forum {% endblock %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% load base_temptags %}
+{% block title %} {{post.title}}| AzePUG Forum {% endblock %}
 {% block body%}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
     <p class="text-lg-right">
         <i>Müəllif: 
             <a href="{% url 'user' post.author.user_name %}">{{post.author}}</a> 
-            Tarix:{{question.date_created}}
+            Tarix:{{post.date_created}}
         </i>
     </p>
     <div class="text-sm-center">
@@ -20,23 +22,28 @@
         <br>
         <span>Views: {{post.views}}</span>
         <hr>
-        <br>
         {% if request.user == post.author %}
-        <br><br>
             <a class = "btn btn-secondary" href="{% url 'question_update' post.id %}" >
                 Redaktə et
             </a>
+
             <a class = "btn btn-secondary" href="{% url 'question_delete' post.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% support_save_tag user=user app_name='question' post=post %}
+                <script src="{% static 'forum/question.js' %}"></script>
+            {% endif %}
         {% endif %}
+        <br>
     </div>
     <hr>
 
 {% for a in answers %}
     <div class = "card mb-10">
         <div class="card card-title mx-2">
-            <a class="card-link" href="{% url 'answer_detail' question.id a.id %}">
+            <a class="card-link" href="{% url 'answer_detail' post.id a.id %}">
                 <h3> {{a.author.user_name}} </h3>
             </a>
         </div>
@@ -59,6 +66,5 @@
 {% else %}
     <h5><strong>Cavab vermək üçün <a href="{% url 'login' %}">daxil ol</a> və ya <a href="register">qeydiyyatdan keç!</a></strong></h5>
 {% endif %}
-
 </div>
 {% endblock %}

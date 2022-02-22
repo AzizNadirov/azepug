@@ -1,0 +1,15 @@
+{% load static %}
+<div class="row like-save-container" >
+    {% if post in supporteds %}
+        <button class = "btn btn-info btn-support" id = "{{post.id}}" value="unsupport" > Unsupport </button>
+    {% else %}
+        <button class = "btn btn-info btn-support" id="{{post.id}}"  value="support"> Support </button>
+    {% endif %}
+    {% if post not in saveds %}
+        <button class = "btn mx-2 btn-info btn-save" id = "{{post.id}}" value="save"> Save </button>
+    {% else %}
+        <button class = "btn btn-success mx-2 btn-save" id = "{{post.id}}" value = "unsave"> Unsave </button>
+    {% endif %}
+    
+</div>
+<script src = "{% static 'forum/forum.js' %}"></script>

@@ -76,7 +76,7 @@ class EventDetailView(View):
         comment_form = CommentForm()
         subscribe_form = SubscribeForm()
         subscribed = self.handle_subscribe(request.GET,event)
-        context = {'event':event,'comments':comments, 'new_comment':new_comment, 'subscribed':subscribed, 'comment_form':comment_form, 'subscribe_form': subscribe_form}
+        context = {'post':event,'comments':comments, 'new_comment':new_comment, 'subscribed':subscribed, 'comment_form':comment_form, 'subscribe_form': subscribe_form}
         self.increment_view(event)
         return render(request, 'events/detail.html', context)
 

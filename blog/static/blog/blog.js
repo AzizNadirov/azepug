@@ -1,1 +1,1 @@
-likeSave("blogs")
+likeSave("blog")

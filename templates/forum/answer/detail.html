@@ -1,6 +1,8 @@
 {% extends 'base.html'%}
-{% block title %} {{answer.question.title}} - AzePUG {% endblock %}
 {% load crispy_forms_tags %}
+{% load static %}
+{% load base_temptags %}
+{% block title %} {{answer.question.title}} - AzePUG {% endblock %}
 {% block body %}
 <div class="container">
     <a href="{% url 'question_detail' answer.question.id %}">
@@ -27,6 +29,12 @@
             <a class = "btn btn-secondary" href="{% url 'answer_delete' answer.question.id answer.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% like_save_tag user=user app_name='answer' post=answer %}
+                <script src="{% static 'forum/answer.js' %}"></script>
+            {% endif %}
         {% endif %}
  {% include 'comments.html' %}
+
 {% endblock %}

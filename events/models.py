@@ -15,7 +15,7 @@ class Event(AbstractPost):
     starts_at = models.DateTimeField("Başlanma tarixi")
     ends_at = models.DateTimeField("Sonlanma tarixi")
     tags = TaggableManager()
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_events")
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_event")
     like_count = models.IntegerField(default=0)
     participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="in_events")
 

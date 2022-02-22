@@ -18,7 +18,8 @@ class Comment(AbstractComment):
 
 class Question(AbstractPost):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="questions")
-    supports = models.IntegerField(default=0)
+    supports = models.ManyToManyField(to = 'users.Profile', related_name = "supported_question")
+    supports_count = models.IntegerField(default=0)
     last_edited = models.DateTimeField(auto_now = True)
     tags = TaggableManager()
     closed = models.BooleanField(default=False)
@@ -36,7 +37,8 @@ class Question(AbstractPost):
 class Answer(AbstractPost):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="answers")
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name= "answers")
-    supports = models.IntegerField(default=0)
+    supports = models.ManyToManyField(to = 'users.Profile', related_name = "supported_answer")
+    supports_count = models.IntegerField(default=0)
     last_edited = models.DateTimeField(auto_now = True)
     title = None
 

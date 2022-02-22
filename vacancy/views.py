@@ -50,7 +50,7 @@ class VacancyDetailView(View):
         new_comment = None 
         comment_form = CommentForm()
 
-        context = {'vacancy':vacancy,
+        context = {'post':vacancy,
                 'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         self.increment_view(vacancy)
         return render(request, 'vacancy/detail.html', context)

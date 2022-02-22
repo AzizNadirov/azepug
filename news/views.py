@@ -46,7 +46,7 @@ class NewsDetailView(View):
         comments = news.n_comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm()
-        context = {'news':news,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        context = {'post':news,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         self.increment_view(news)
         return render(request, 'news/detail.html', context)
 

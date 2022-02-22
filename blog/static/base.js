@@ -1,5 +1,4 @@
-
-function likeSave(appName_plural){
+function likeSave(app_name){
   const BASE_URL = "http://127.0.0.1:8000/"
   btn_like = document.getElementsByClassName('btn-like')[0]
   btn_save = document.getElementsByClassName('btn-save')[0]
@@ -12,7 +11,7 @@ function likeSave(appName_plural){
           url: BASE_URL + "like",
           data: {
             postid: e.target.id,
-            value: `${appName_plural}|` + e.target.value,
+            value: `${app_name}|` + e.target.value,
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             // action: $('#btn-like').val()
           },
@@ -39,7 +38,7 @@ function likeSave(appName_plural){
           url: BASE_URL + 'save',
           data: {
             postid: e.target.id,
-            value: `${appName_plural}|` + e.target.value,
+            value: `${app_name}|` + e.target.value,
             csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
             //  action: $('#btn-like').val()
           },

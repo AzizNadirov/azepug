@@ -1,1 +1,1 @@
-likeSave("events")
+likeSave("event")

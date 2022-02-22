@@ -1,6 +1,9 @@
 {% extends 'base.html'%}
-{% block title %} {{post.title}} {% endblock %}
 {% load crispy_forms_tags %}
+{% load base_temptags %}
+{% load static %}
+
+{% block title %} {{post.title}} {% endblock %}
 {% block body%}
 <div class="container">
     <h2><i>{{post.title}}</i></h2>
@@ -35,8 +38,12 @@
             <a class = "btn btn-secondary" href="{% url 'vacancy_delete' post.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% like_save_tag user=user app_name='vacancy' post=post %}
+                <script src="{% static 'news/news.js' %}"></script>
+            {% endif %}
         {% endif %}
     </div>
 {% include 'comments.html' %}
-
 {% endblock %}

@@ -1,6 +1,7 @@
 {% extends 'base.html'%}
 {% load crispy_forms_tags %}
 {% load static %}
+{% load base_temptags %}
 {% block title %} {{post.title}} - AzePUG {% endblock %}
 {% block body %}
 
@@ -20,10 +21,6 @@
         <br>
         <span>Views: {{post.views}}</span>
         <hr>
-        {% if user.is_authenticated %}
-            {% include 'like_save.html' %}
-        {% endif %}
-
         {% if request.user == post.author %}
             <a class = "btn btn-secondary" href="{% url 'blog_update' post.id %}" >
                 Redaktə et
@@ -32,8 +29,12 @@
             <a class = "btn btn-secondary" href="{% url 'blog_delete' post.id %}" >
                 Sil
             </a>
+        {% else %}
+            {% if user.is_authenticated %}
+                {% like_save_tag user=user app_name='blog' post=post %}
+                <script src="{% static 'blog/blog.js' %}"></script>
+            {% endif %}
         {% endif %}
     </div>
 {% include 'comments.html' %}
-<script src="{% static 'blog/blog.js' %}"></script>
 {% endblock %}
