@@ -18,8 +18,8 @@
                       <h3> {{v.title}} </h3>
                     </a>
                 </div>
-                <div class="car-body">
-                    {{v.content|truncatewords:30|linebreaks}}
+                <div class="card-body">
+                    {{v.content|safe|truncatewords:30|linebreaks}}
                 </div>
             </div>
         {% endfor %}

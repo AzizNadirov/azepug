@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 
 class AbstractPost(m.Model):
     title = m.CharField("Başlıq", max_length = 128)
-    content = RichTextField()
+    content = RichTextField(blank = True)
     date_created = m.DateTimeField("Yaradılma tarixi", default= timezone.now)
     drafted = m.BooleanField(verbose_name="Qaralama", default = False)
     views = m.IntegerField(verbose_name="", default=0)

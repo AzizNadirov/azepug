@@ -9,7 +9,7 @@
     <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' post.author.user_name %}">{{post.author}}</a> Tarix:{{post.date_created}}</i></p>
     <hr>
     <div class="text-sm-center">
-        {{post.content}}
+        {{post.content|safe}}
         <hr>
         <span>Tags: </span>
         {% for tag in post.tags.all %}

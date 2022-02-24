@@ -19,7 +19,7 @@
                     </a>
                 </div>
                 <div class="car-body mx-3">
-                    {{event.content|truncatewords:30|linebreaks}}
+                    {{event.content|safe|truncatewords:30|linebreaks}}
                 </div>
             </div>
         {% endfor %}

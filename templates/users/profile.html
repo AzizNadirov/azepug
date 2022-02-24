@@ -39,7 +39,7 @@
                <div class="card rp-item">
                    <a class="card-title rp-title" href = "{{post.get_absolute_url}}">{{post.title}}</a>
                    <p class="card-body">
-                       {{post.content|truncatewords:20}}
+                       {{post.content|safe|truncatewords:20}}
                    </p>
                </div> 
             {% empty %}
@@ -53,7 +53,7 @@
             <div class="card rp-item">
                 <a class="card-title rp-title" href = "{{news.get_absolute_url}}">{{news.title}}</a>
                 <p class="card-body">
-                    {{news.content|truncatewords:20}}
+                    {{news.content|safe|truncatewords:20}}
                 </p>
             </div> 
             {% empty %}
@@ -66,7 +66,7 @@
             <div class="card rp-item">
                 <a class="card-title rp-title" href = "{{q.get_absolute_url}}">{{q.title}}</a>
                 <p class="card-body">
-                    {{q.content|truncatewords:20}}
+                    {{q.content|safe|truncatewords:20}}
                 </p>
             </div> 
             {% empty %}
@@ -79,7 +79,7 @@
             <div class="card rp-item">
                 <a class="card-title rp-title" href = "{{a.get_absolute_url}}">{{a.question.title}}</a>
                 <p class="card-body">
-                    {{a.content|truncatewords:20}}
+                    {{a.content|safe|truncatewords:20}}
                 </p>
             </div> 
             {% empty %}

@@ -19,7 +19,7 @@
                     </a>
                 </div>
                 <div class="car-body">
-                    {{q.content|truncatewords:30|linebreaks}}
+                    {{q.content|safe|truncatewords:30|linebreaks}}
                 </div>
             </div>
         {% endfor %}

@@ -11,6 +11,7 @@
             New vacancy
         </legend>
         <a href="#"><img src="{% static 'vacancy/png/plus.png' %}" alt="Add employer" id = "add_emp_btn"></a> <span class="add-emp">Add Employer</span>
+        {{form.media}}
         {{form|crispy}}
     </fieldset>
     <div class="form-group">

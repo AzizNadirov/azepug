@@ -9,12 +9,12 @@
         <h2><i>{{answer.question.title}}</i></h2>
     </a>
     <div style = "font-size: 18px; border: solid black 1px">
-        <div class="mx-2">{{answer.question.content}}</div>
+        <div class="mx-2">{{answer.question.content|safe}}</div>
     </div>
     <hr>
     <p class="text-lg-right"> <i>Müəllif: <a href="{% url 'user' answer.author.user_name %}">{{answer.author}}</a> Tarix:{{answer.date_created}}</i></p>
     <div class="card">
-        <p>{{answer.content}}</p>
+        <p>{{answer.content|safe}}</p>
     </div>
     <hr>
     <br>

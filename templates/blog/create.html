@@ -7,6 +7,7 @@
 <div class="container pt-5">
     <form method="POST">
         {% csrf_token %}
+        {{form.media}}
         {{form|crispy}}
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>

@@ -33,7 +33,7 @@
                     <hr>
                 </div>
                 <div class="card-body my-1 mx-2">
-                    <p>{{post.content|truncatewords:30|linebreaks}}</p>
+                    <p>{{post.content|safe|truncatewords:30|linebreaks}}</p>
                 </div>
             </div>
         </div>

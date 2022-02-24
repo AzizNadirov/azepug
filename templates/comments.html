@@ -13,7 +13,7 @@
                 ||#{{forloop.counter}}||  {{comment.author}}: {{comment.created_at}}
             </div>
             <div class="card-body mx-2" style = "font-size: 18px">
-                {{comment.body|linebreaks}}
+                {{comment.body|safe|linebreaks}}
             </div>
         </div>
     {% empty %}
@@ -30,6 +30,7 @@
     {% endif %}
     {% if user.is_authenticated %}
             <form method="POST" enctype="multipart/form-data">
+                {{comment_form.media}}
                 {{comment_form|crispy}}
                 {% csrf_token %}
                     <p>

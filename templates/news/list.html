@@ -30,7 +30,7 @@
             <div class = "card-subtitle">
                 <i> Paylaşdı: <a href="#"> <strong>{{n.author}}</strong></a> Tarix:  {{n.date_created}} </i>
             </div>
-            <p>{{n.content|truncatewords:30|linebreaks}}</p>
+            <p>{{n.content|safe|truncatewords:30|linebreaks}}</p>
         </div>
 
         {% endfor %}
