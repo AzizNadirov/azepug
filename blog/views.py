@@ -35,6 +35,23 @@ class PostDetailView(View):
         context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
         self.increment_view(post)
         return render(request, 'blog/detail.html', context)
+        
+    def post(self, request, pk):
+        post = get_object_or_404(Post, id = pk)
+        comments = post.b_comments.filter(active = True)
+        new_comment = None
+        comment_form = CommentForm(data = request.POST, files=request.FILES)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit = False)
+            new_comment.post = post
+            new_comment.author = request.user
+            new_comment.save()
+            comment_form = CommentForm()
+        else:
+            comment_form = CommentForm()
+
+        context = {'post':post,'comments':comments, 'new_comment':new_comment, 'comment_form':comment_form}
+        return render(request, 'blog/detail.html', context)
 
 
 class PostCreateView(LoginRequiredMixin,CreateView):

@@ -30,10 +30,12 @@ class NewsDetailView(View):
         comments = news.n_comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm(data = request.POST, files=request.FILES)
+        print(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit = False)
             new_comment.news = news
             new_comment.author = request.user
+            print("*"*50)
             new_comment.save()
         scomment_form = CommentForm()
 

@@ -4,7 +4,7 @@ from .models import Comment, News
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body', 'image']
+        fields = ['body']
 
 
 class CreateNewsForm(forms.ModelForm):

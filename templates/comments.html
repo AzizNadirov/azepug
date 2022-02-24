@@ -10,7 +10,7 @@
     {% for comment in comments %}
         <div class="card my-1">
             <div class="card-title mx-3">
-                ||#{{forloop.counter}}||  {{comment.author}}: {{comment.created_at}}
+                ||#{{comment.id}}||  {{comment.author}}: {{comment.created_at}}
             </div>
             <div class="card-body mx-2" style = "font-size: 18px">
                 {{comment.body|safe|linebreaks}}
@@ -30,9 +30,8 @@
     {% endif %}
     {% if user.is_authenticated %}
             <form method="POST" enctype="multipart/form-data">
-                {{comment_form.media}}
-                {{comment_form|crispy}}
                 {% csrf_token %}
+                {{comment_form|crispy}}
                     <p>
                         <input class="btn btn-success" type="submit" value="Əlavə et">
                     </p>

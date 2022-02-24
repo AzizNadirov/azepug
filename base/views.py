@@ -9,7 +9,6 @@ from .utils import search_by_upi, get_model_by_appname
 
 
 class LikeView(LoginRequiredMixin ,View):
-    print("\nLikeVyu is now\n")
     def increment_like(self, app_name, pk, decrement = False):
         """ like incerementer """
         post = get_model_by_appname(app_name).objects.get(pk = pk)

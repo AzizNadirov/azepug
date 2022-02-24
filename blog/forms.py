@@ -6,7 +6,7 @@ from ckeditor_uploader.widgets import CKEditorUploadingWidget
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body', 'image']
+        fields = ['body', ]
         widgets = {'body': CKEditorUploadingWidget}
 
 

@@ -8,7 +8,7 @@ from ckeditor.fields import RichTextField
 
 class AbstractPost(m.Model):
     title = m.CharField("Başlıq", max_length = 128)
-    content = RichTextField(blank = True)
+    content = RichTextField()
     date_created = m.DateTimeField("Yaradılma tarixi", default= timezone.now)
     drafted = m.BooleanField(verbose_name="Qaralama", default = False)
     views = m.IntegerField(verbose_name="", default=0)
@@ -24,7 +24,6 @@ class AbstractComment(m.Model):
     created_at = m.DateTimeField('Yaradılma tarixi',auto_now_add = True)
     updated = m.DateTimeField('Yenilənmə tariix', auto_now = True)
     active = m.BooleanField('Aktiv', default = True)
-    image = m.ImageField(null = True, blank = True)
 
     class Meta:
         abstract = True

@@ -18,4 +18,4 @@ class AnswerCreateForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body', 'image']
+        fields = ['body']
