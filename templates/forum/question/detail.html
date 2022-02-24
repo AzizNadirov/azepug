@@ -20,7 +20,7 @@
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
         <br>
-        <span>Views: {{post.views}}</span>
+        <span>||Views : {{post.views}}|| </span><span id="s_count"> Supports : {{post.supports_count}}||</span>
         <hr>
         {% if request.user == post.author %}
             <a class = "btn btn-secondary" href="{% url 'question_update' post.id %}" >

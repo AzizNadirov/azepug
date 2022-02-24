@@ -39,8 +39,8 @@
             <a href="#" class="badge badge-info" >{{ tag }}</a>
         {% endfor %}
         <br>
-        <span>Views: {{post.views}}</span>
-        <span>Participants: {{post.participants.count}}</span>
+        <span>||Views : {{post.views}}|| </span><span id="l_count"> Likes : {{post.like_count}}||</span>
+        <span>Participants: {{post.participants.count}}||</span>
         <hr>
         <br>
         {% if request.user == post.author %}

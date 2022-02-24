@@ -9,13 +9,16 @@ from .utils import search_by_upi, get_model_by_appname
 
 
 class LikeView(LoginRequiredMixin ,View):
+    print("\nLikeVyu is now\n")
     def increment_like(self, app_name, pk, decrement = False):
         """ like incerementer """
         post = get_model_by_appname(app_name).objects.get(pk = pk)
         if not decrement:
-            post.like_count = F('views') + 1
+            print('\n-----Like Incrementer--------------\n')
+            post.like_count = F('like_count') + 1
         else:
-            post.like_count = F('views') - 1
+            print('\n-----Like Decrementer--------------\n')
+            post.like_count = F('like_count') - 1
         post.save()
         post.refresh_from_db()
 
@@ -42,9 +45,9 @@ class SupportView(LoginRequiredMixin ,View):
         """ support incerementer """
         post = get_model_by_appname(app_name).objects.get(pk = pk)
         if not decrement:
-            post.like_count = F('views') + 1
+            post.supports_count = F('supports_count') + 1
         else:
-            post.like_count = F('views') - 1
+            post.supports_count = F('supports_count') - 1
         post.save()
         post.refresh_from_db()
 
@@ -55,7 +58,6 @@ class SupportView(LoginRequiredMixin ,View):
         if app_name not in ['question', 'answer']:
             raise ValueError(" Incorrect app name! ")
         postid = request.POST.get("postid")
-        print(f"id: {postid}; appname: {app_name}; value: {value}")
         if value == "support":
             code = f"request.user.supported_{app_name}.add(postid)"
             eval(code)
