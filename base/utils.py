@@ -5,12 +5,12 @@ from blog.models import Post
 from events.models import Event
 from news.models import News
 from vacancy.models import Vacancy
-from forum.models import Question
+from forum.models import Question, Answer
 
 
 
 def get_model_by_appname(app_name:str):
-    app_list = ['blog', 'event', 'news', 'vacancy', 'question']
+    app_list = ['blog', 'event', 'news', 'vacancy', 'question', 'answer']
     if app_name not in app_list:
         return None
     if app_name == 'blog': return Post
@@ -18,6 +18,7 @@ def get_model_by_appname(app_name:str):
     elif app_name == 'news': return News
     elif app_name == 'vacancy': return Vacancy
     elif app_name == 'question': return Question
+    elif app_name == 'answer': return Answer
 
 def get_top_n(n:int = 5):
     """

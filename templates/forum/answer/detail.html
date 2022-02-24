@@ -31,7 +31,7 @@
             </a>
         {% else %}
             {% if user.is_authenticated %}
-                {% like_save_tag user=user app_name='answer' post=answer %}
+                {% support_save_tag user=user app_name='answer' post=answer %}
                 <script src="{% static 'forum/answer.js' %}"></script>
             {% endif %}
         {% endif %}

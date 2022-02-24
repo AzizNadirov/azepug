@@ -25,7 +25,7 @@ class Vacancy(AbstractPost):
     contact = models.CharField( "Əlaqə ünvanı" ,max_length=128)
     min_salary = models.PositiveIntegerField("Minimal maaş")
     tags = TaggableManager()
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancies", blank = True, null = True)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="liked_vacancy", blank = True, null = True)
     like_count = models.IntegerField(default=0)
 
 

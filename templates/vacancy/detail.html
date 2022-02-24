@@ -41,7 +41,7 @@
         {% else %}
             {% if user.is_authenticated %}
                 {% like_save_tag user=user app_name='vacancy' post=post %}
-                <script src="{% static 'news/news.js' %}"></script>
+                <script src="{% static 'vacancy/vacancy.js' %}"></script>
             {% endif %}
         {% endif %}
     </div>

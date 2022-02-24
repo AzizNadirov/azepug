@@ -5,10 +5,13 @@
     {% else %}
         <button class = "btn btn-info btn-support" id="{{post.id}}"  value="support"> Support </button>
     {% endif %}
-    {% if post not in saveds %}
-        <button class = "btn mx-2 btn-info btn-save" id = "{{post.id}}" value="save"> Save </button>
-    {% else %}
-        <button class = "btn btn-success mx-2 btn-save" id = "{{post.id}}" value = "unsave"> Unsave </button>
+    {% if not is_answer %}
+    {% comment %} answer has no save ability {% endcomment %}
+        {% if post not in saveds %}
+            <button class = "btn mx-2 btn-info btn-save" id = "{{post.id}}" value="save"> Save </button>
+        {% else %}
+            <button class = "btn btn-success mx-2 btn-save" id = "{{post.id}}" value = "unsave"> Unsave </button>
+        {% endif %}
     {% endif %}
     
 </div>
