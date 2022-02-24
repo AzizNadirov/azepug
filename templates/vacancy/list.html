@@ -12,16 +12,20 @@
             </a>
         </div>
         {% for v in vacancies %}
-            <div class = "card mb-10">
-                <div class="card card-title">
-                    <a class="card-link" href="{% url 'vacancy_detail' v.id %}">
-                      <h3> {{v.title}} </h3>
-                    </a>
-                </div>
-                <div class="card-body">
-                    {{v.content|safe|truncatewords:30|linebreaks}}
-                </div>
+        <div class = "card list-item my-1 mx-0">
+            <div class="card-title mx-2">
+                <a href="{{v.get_absolute_url}}"><h3> {{v.title}}</h3></a>
             </div>
+            <div class = "card-subtitle mx-1">
+                <i> Paylaşdı: <a href="{% url 'user' v.author.user_name %}"> <strong>{{v.author}}</strong></a> Tarix:  {{v.date_created}}
+                     Likes:[{{v.like_count}}] || Views [{{v.views}}]
+                </i>
+                <hr>
+            </div>
+            <div class="card-body my-1 mx-2">
+                <p>{{v.content|safe|truncatewords:30|linebreaks}}</p>
+            </div>
+        </div>
         {% endfor %}
     </div>
 {% endblock %}

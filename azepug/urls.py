@@ -10,7 +10,7 @@ from users import views as users_views
 
 urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
-    path('posts/', include('blog.urls')),
+    path('blogs/', include('blog.urls')),
     path('', include('home.urls')),
     path('admin/', admin.site.urls),
     path('register/', include('users.urls')),

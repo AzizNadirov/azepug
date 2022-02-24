@@ -29,7 +29,9 @@
                     <a href="{{post.get_absolute_url}}"><h3> {{post.title}}</h3></a>
                 </div>
                 <div class = "card-subtitle mx-1">
-                    <i> Paylaşdı: <a href="#"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}} </i>
+                    <i> Paylaşdı: <a href="{% url 'user' post.author.user_name %}"> <strong>{{post.author}}</strong></a> Tarix:  {{post.date_created}}
+                         Likes:[{{post.like_count}}] || Views [{{post.views}}]
+                    </i>
                     <hr>
                 </div>
                 <div class="card-body my-1 mx-2">

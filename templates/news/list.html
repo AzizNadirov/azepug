@@ -27,10 +27,15 @@
         {% for n in news %}
         <div class = "card">
             <a href="{{n.get_absolute_url}}"> <h3> {{n.title}}</h3></a>
-            <div class = "card-subtitle">
-                <i> Paylaşdı: <a href="#"> <strong>{{n.author}}</strong></a> Tarix:  {{n.date_created}} </i>
+            <div class = "card-subtitle mx-1">
+                <i> Paylaşdı: <a href="{% url 'user' n.author.user_name %}"> <strong>{{n.author}}</strong></a> Tarix:  {{n.date_created}}
+                     Likes:[{{n.like_count}}] || Views [{{n.views}}]
+                </i>
+                <hr>
             </div>
-            <p>{{n.content|safe|truncatewords:30|linebreaks}}</p>
+            <div class="card-body">
+                <p>{{n.content|safe|truncatewords:30|linebreaks}}</p>
+            </div>
         </div>
 
         {% endfor %}

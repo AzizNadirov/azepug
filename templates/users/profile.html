@@ -50,12 +50,18 @@
         <div class="row recent-news">
             <h5 class="rp-title">Recent news</h5>
             {% for news in recents.news %}
-            <div class="card rp-item">
-                <a class="card-title rp-title" href = "{{news.get_absolute_url}}">{{news.title}}</a>
-                <p class="card-body">
-                    {{news.content|safe|truncatewords:20}}
-                </p>
-            </div> 
+                <div class="card rp-item">
+                    <a class="card-title rp-title" href = "{{news.get_absolute_url}}">{{news.title}}</a>
+                    <div class = "card-subtitle mx-1">
+                        <i>Tarix:  {{event.date_created}}
+                            Likes:[{{news.like_count}}] || Views [{{news.views}}]
+                        </i>
+                        <hr>
+                    </div>
+                    <p class="card-body">
+                        {{news.content|safe|truncatewords:20}}
+                    </p>
+                </div> 
             {% empty %}
                 <span>There is nothing for display...</span>
             {% endfor %}
@@ -65,6 +71,12 @@
             {% for q in recents.question %}
             <div class="card rp-item">
                 <a class="card-title rp-title" href = "{{q.get_absolute_url}}">{{q.title}}</a>
+                <div class = "card-subtitle mx-1">
+                    <i>Date:  {{q.date_created}}
+                        Likes:[{{q.like_count}}] || Views [{{q.views}}]
+                    </i>
+                    <hr>
+                </div>
                 <p class="card-body">
                     {{q.content|safe|truncatewords:20}}
                 </p>
@@ -78,6 +90,12 @@
             {% for a in recents.answer %}
             <div class="card rp-item">
                 <a class="card-title rp-title" href = "{{a.get_absolute_url}}">{{a.question.title}}</a>
+                <div class = "card-subtitle mx-1">
+                    <i>Tarix:  {{a.date_created}}
+                        Likes:[{{a.like_count}}] || Views [{{a.views}}]
+                    </i>
+                    <hr>
+                </div>
                 <p class="card-body">
                     {{a.content|safe|truncatewords:20}}
                 </p>

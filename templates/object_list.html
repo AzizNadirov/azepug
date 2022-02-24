@@ -1,19 +1,19 @@
 <div class="obj-list">
     {% for obj in qset %}
-        <div class="row">
-            <div class = "card list-item my-1 mx-0">
-                <div class="card-title mx-2">
-                    <a href="{{obj.get_absolute_url}}"><h3> {{obj.title}}</h3></a>
-                </div>
-                <div class = "card-subtitle mx-1">
-                    <i> Paylaşdı: <a href="#"> <strong>{{obj.author}}</strong></a> Tarix:  {{obj.date_created}} </i>
-                    <hr>
-                </div>
-                <div class="card-body my-1 mx-2">
-                    <p>{{obj.content|truncatewords:30|linebreaks|safe}}</p>
-                </div>
-            </div>
+    <div class = "card list-item my-1 mx-0">
+        <div class="card-title mx-2">
+            <a href="{{obj.get_absolute_url}}"><h3> {{obj.title}}</h3></a>
         </div>
+        <div class = "card-subtitle mx-1">
+            <i> Paylaşdı: <a href="{% url 'user' obj.author.user_name %}"> <strong>{{obj.author}}</strong></a> Tarix:  {{obj.date_created}}
+                 Likes:[{{obj.like_count}}] || Views [{{obj.views}}]
+            </i>
+            <hr>
+        </div>
+        <div class="card-body my-1 mx-2">
+            <p>{{obj.content|safe|truncatewords:30|linebreaks}}</p>
+        </div>
+    </div>
     {% endfor %}
 
 

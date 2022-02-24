@@ -18,6 +18,12 @@
                       <h3> {{event.title}} </h3>
                     </a>
                 </div>
+                <div class = "card-subtitle mx-1">
+                    <i> Paylaşdı: <a href="{% url 'user' event.author.user_name %}"> <strong>{{event.author}}</strong></a> Tarix:  {{event.date_created}}
+                         Likes:[{{event.like_count}}] || Views [{{event.views}}]
+                    </i>
+                    <hr>
+                </div>
                 <div class="car-body mx-3">
                     {{event.content|safe|truncatewords:30|linebreaks}}
                 </div>
