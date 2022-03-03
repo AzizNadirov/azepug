@@ -32,8 +32,8 @@ class Post(AbstractPost):
 
 class Comment(AbstractComment):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name='müəllif', related_name = 'b_comments', null = True, on_delete=models.SET_NULL)
-    post = models.ForeignKey(Post, related_name = 'b_comments', on_delete = models.CASCADE)
+    post = models.ForeignKey(Post, related_name = 'comments', on_delete = models.CASCADE)
    
     def __str__(self):
-         return f'Comment to -- " by {self.author} on: {self.created_at}'
+         return f'Comment {self.author} to: {self.post}'
 

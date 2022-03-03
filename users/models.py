@@ -59,12 +59,11 @@ class Profile(AbstractBaseUser, PermissionsMixin):
     start_date = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to=photo_upload, default = 'profile_pics/default_avatar.jpg',
             null=True, blank = True)
-    about = models.TextField(max_length=1024, blank = True, null = True)
+    about = models.TextField(max_length=1024)
     contacts = models.ManyToManyField(Contacts, related_name='profiles')
     is_staff = models.BooleanField(default = True)
     is_active = models.BooleanField(default = True)
     objects = ProfileManager()
-    # treasure = models.OneToOneField('Treasure', on_delete = models.CASCADE)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['user_name', 'first_name']
@@ -91,12 +90,12 @@ class Profile(AbstractBaseUser, PermissionsMixin):
 
 
 class Treasure(models.Model):
-    profile = models.OneToOneField(Profile, on_delete = models.CASCADE, blank = True, null = True)
-    blog = models.ManyToManyField(Post, related_name = 'treasure', blank = True, null = True)
-    event = models.ManyToManyField(Event, related_name = 'treasure', blank = True, null = True)
+    profile = models.OneToOneField(Profile, on_delete = models.CASCADE)
+    blog = models.ManyToManyField(Post, related_name = 'treasure')
+    event = models.ManyToManyField(Event, related_name = 'treasure')
     news = models.ManyToManyField(News, related_name = 'treasure')
-    question = models.ManyToManyField(Question, related_name = 'treasure', blank = True, null = True)
-    vacancy = models.ManyToManyField(Vacancy, related_name = 'treasure', blank = True, null = True)
+    question = models.ManyToManyField(Question, related_name = 'treasure')
+    vacancy = models.ManyToManyField(Vacancy, related_name = 'treasure')
 
     def __str__(self):
         return f"{self.profile.user_name}'s Treasure"

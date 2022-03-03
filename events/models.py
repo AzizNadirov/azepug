@@ -29,7 +29,7 @@ class Event(AbstractPost):
 class Comment(AbstractComment):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,verbose_name='müəllif', related_name = 'e_comments', 
         null = True, on_delete=models.SET_NULL)
-    event = models.ForeignKey(Event, related_name = 'e_comments', on_delete = models.CASCADE)
+    event = models.ForeignKey(Event, related_name = 'comments', on_delete = models.CASCADE)
 
     def __str__(self):
-         return f'Comment to -- " by {self.author}'
+         return f'Comment {self.author} to {self.event}'

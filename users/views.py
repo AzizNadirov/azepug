@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
 from django.core.paginator import Paginator
 from django.views.generic import View
 
@@ -23,7 +22,7 @@ def register(request):
         if form.is_valid():
             form.save() 
             username = form.cleaned_data.get('user_name')
-            messages.success(request, f'Qeydiyyat uğurla tamamlandı. Zəhmət olmasa yenidən daxil olun {username}!')
+            messages.success(request, f'You are registered successfully! Now you can log in !')
             return redirect('login')
     else:
         form = UserRegistrationForm()

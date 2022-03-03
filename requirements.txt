@@ -7,3 +7,5 @@ django-taggit
 django-ckeditor
 Pillow
 django-cors-headers
+pytest
+pytest-django

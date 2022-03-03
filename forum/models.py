@@ -13,7 +13,7 @@ class Comment(AbstractComment):
     answer = models.ForeignKey('Answer', related_name = 'comments', on_delete = models.CASCADE)
 
     def __str__(self):
-         return f'{self.author} - comment to answer: {self.answer}'
+         return f'Comment {self.author} to answer: {self.answer}'
 
 
 class Question(AbstractPost):
