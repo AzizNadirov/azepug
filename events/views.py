@@ -71,7 +71,7 @@ class EventDetailView(View):
 
     def get(self, request, pk):
         event = get_object_or_404(Event, id = pk)
-        comments = event.e_comments.filter(active = True)
+        comments = event.comments.filter(active = True)
         new_comment = None
         comment_form = CommentForm()
         subscribe_form = SubscribeForm()
